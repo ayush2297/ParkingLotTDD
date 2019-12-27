@@ -1,17 +1,16 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ParkingLot {
     private List parkedVehicles;
     private int parkingCapacity;
     private boolean parkingCapacityFull;
-    public List<ParkingLotObserversEnum> observers;
+    public List<ParkingLotObservers> observers;
 
     public ParkingLot() {
         this.parkedVehicles = new ArrayList();
         this.observers = new ArrayList();
-        for (ParkingLotObserversEnum observer: ParkingLotObserversEnum.values()) {
+        for (ParkingLotObservers observer: ParkingLotObservers.values()) {
             this.observers.add(observer);
         }
     }

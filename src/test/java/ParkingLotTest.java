@@ -84,7 +84,7 @@ public class ParkingLotTest {
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
-            Assert.assertTrue(ParkingLotObserversEnum.OWNER.isParkingFull);
+            Assert.assertTrue(ParkingLotObservers.OWNER.isParkingFull);
         }
     }
 
@@ -98,8 +98,8 @@ public class ParkingLotTest {
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
-            Assert.assertTrue(ParkingLotObserversEnum.OWNER.isParkingFull);
-            Assert.assertTrue(ParkingLotObserversEnum.AIRPORT_SECURITY.isParkingFull);
+            Assert.assertTrue(ParkingLotObservers.OWNER.isParkingFull);
+            Assert.assertTrue(ParkingLotObservers.AIRPORT_SECURITY.isParkingFull);
         }
     }
 }
