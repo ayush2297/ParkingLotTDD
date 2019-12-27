@@ -1,34 +1,64 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ParkingLotTest {
 
+    ParkingLot parkingLot;
+    Object vehicle;
+
+    @Before
+    public void setup() {
+        this.parkingLot = new ParkingLot();
+        this.vehicle = new Object();
+    }
+
     @Test
     public void givenAVehicle_WhenParkedInParkingLot_ShouldReturnTrue() {
-        ParkingLot parkingLot = new ParkingLot();
-        Object vehicle = new Object();
-        boolean isParked = parkingLot.parkTheCar(vehicle);
-        Assert.assertTrue(isParked);
+        try {
+            parkingLot.parkTheCar(vehicle);
+            boolean isParked = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
+            Assert.assertTrue(isParked);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Test
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
-        ParkingLot parkingLot = new ParkingLot();
-        Object vehicle = new Object();
-        parkingLot.parkTheCar(vehicle);
-        boolean isUnParked = parkingLot.unParkTheCar(vehicle);
-        Assert.assertTrue(isUnParked);
+        try {
+            parkingLot.parkTheCar(vehicle);
+            parkingLot.unParkTheCar(vehicle);
+            boolean thisCarPresentInTheParkingLot = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
+            Assert.assertFalse(thisCarPresentInTheParkingLot);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void givenAVehicle_WhenTriedToUnParkedEvenWhenItWasntParked_ShouldReturnFalse() {
-        ParkingLot parkingLot = new ParkingLot();
-        Object vehicle1 = new Object();
-        parkingLot.parkTheCar(vehicle1);
-        Object vehicle2 = new Object();
-        boolean isUnParked = parkingLot.unParkTheCar(vehicle2);
-        Assert.assertFalse(isUnParked);
+    public void givenAVehicle_WhenTriedToUnParkedEvenWhenItWasNotParked_ShouldReturnFalse() {
+        try {
+            parkingLot.parkTheCar(vehicle);
+            Object vehicle2 = new Object();
+            parkingLot.unParkTheCar(vehicle2);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED, e.type);
+        }
     }
 
+    @Test
+    public void givenAParkingLotWithASize_WhenCapacityIsFull_ShouldThrowAnException() {
+        try {
+            parkingLot.setParkingLotCapacity(2);
+            parkingLot.parkTheCar(vehicle);
+            Object vehicle2 = new Object();
+            parkingLot.parkTheCar(vehicle2);
+            Object vehicle3 = new Object();
+            parkingLot.parkTheCar(vehicle3);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
+        }
+    }
 }
