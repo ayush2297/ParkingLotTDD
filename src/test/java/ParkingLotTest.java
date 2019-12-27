@@ -10,6 +10,7 @@ public class ParkingLotTest {
     @Before
     public void setup() {
         this.parkingLot = new ParkingLot();
+        this.parkingLot.setParkingLotCapacity(2);
         this.vehicle = new Object();
     }
 
@@ -59,6 +60,17 @@ public class ParkingLotTest {
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
+        }
+    }
+
+    @Test
+    public void givenAVehicle_IfTriedToRePark_ShouldThrowAnException() {
+        try {
+            parkingLot.setParkingLotCapacity(3);
+            parkingLot.parkTheCar(vehicle);
+            parkingLot.parkTheCar(vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals(ParkingLotException.ExceptionType.CAR_ALREADY_PARKED, e.type);
         }
     }
 }
