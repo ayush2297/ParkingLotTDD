@@ -38,12 +38,12 @@ public class ParkingLot {
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotException {
-        if (this.isThisCarPresentInTheParkingLot(vehicle)) {
-            this.parkedVehicles.remove(vehicle);
-            this.observersInformer.informThatParkingIsAvailable();
-            return;
+        if (!this.isThisCarPresentInTheParkingLot(vehicle)) {
+            throw new ParkingLotException("No such car present in parking lot!",
+                    ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
         }
-        throw new ParkingLotException("No such car present in parking lot!",
-                ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
+        this.parkedVehicles.remove(vehicle);
+        this.observersInformer.informThatParkingIsAvailable();
+        return;
     }
 }
