@@ -84,7 +84,22 @@ public class ParkingLotTest {
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
-            Assert.assertTrue(this.parkingLot.parkingOwner.isParkingFull);
+            Assert.assertTrue(ParkingLotObserversEnum.OWNER.isParkingFull);
+        }
+    }
+
+    @Test
+    public void whenParkingCapacityIsFull_AndAllTheObserversAreInformedAboutIt_ShouldReturnTrue() {
+        try {
+            this.parkingLot.parkTheCar(vehicle);
+            Object vehicle2 = new Object();
+            parkingLot.parkTheCar(vehicle2);
+            Object vehicle3 = new Object();
+            parkingLot.parkTheCar(vehicle3);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
+            Assert.assertTrue(ParkingLotObserversEnum.OWNER.isParkingFull);
+            Assert.assertTrue(ParkingLotObserversEnum.AIRPORT_SECURITY.isParkingFull);
         }
     }
 }
