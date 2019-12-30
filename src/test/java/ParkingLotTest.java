@@ -9,8 +9,7 @@ public class ParkingLotTest {
 
     @Before
     public void setup() {
-        this.parkingLot = new ParkingLot();
-        this.parkingLot.setParkingLotCapacity(2);
+        this.parkingLot = new ParkingLot(2);
         this.vehicle = new Object();
     }
 
@@ -45,6 +44,7 @@ public class ParkingLotTest {
             Object vehicle2 = new Object();
             parkingLot.unParkTheCar(vehicle2);
         } catch (ParkingLotException e) {
+            e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED, e.type);
         }
     }
@@ -52,13 +52,13 @@ public class ParkingLotTest {
     @Test
     public void givenAParkingLotWithASize_WhenCapacityIsFull_ShouldThrowAnException() {
         try {
-            parkingLot.setParkingLotCapacity(2);
             parkingLot.parkTheCar(vehicle);
             Object vehicle2 = new Object();
             parkingLot.parkTheCar(vehicle2);
             Object vehicle3 = new Object();
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
+            e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
         }
     }
@@ -66,10 +66,10 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_IfTriedToRePark_ShouldThrowAnException() {
         try {
-            parkingLot.setParkingLotCapacity(3);
             parkingLot.parkTheCar(vehicle);
             parkingLot.parkTheCar(vehicle);
         } catch (ParkingLotException e) {
+            e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.CAR_ALREADY_PARKED, e.type);
         }
     }
@@ -83,6 +83,7 @@ public class ParkingLotTest {
             Object vehicle3 = new Object();
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
+            e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
             Assert.assertTrue(ParkingLotObservers.OWNER.isParkingFull);
         }
@@ -97,9 +98,15 @@ public class ParkingLotTest {
             Object vehicle3 = new Object();
             parkingLot.parkTheCar(vehicle3);
         } catch (ParkingLotException e) {
+            e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
             Assert.assertTrue(ParkingLotObservers.OWNER.isParkingFull);
             Assert.assertTrue(ParkingLotObservers.AIRPORT_SECURITY.isParkingFull);
         }
+    }
+
+    @Test
+    public void name() {
+
     }
 }

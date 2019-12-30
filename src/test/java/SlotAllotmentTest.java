@@ -1,0 +1,62 @@
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+public class SlotAllotmentTest {
+
+    private SlotAllotment slotAllotment;
+    private Object vehicle;
+
+    @Before
+    public void setup() {
+        this.slotAllotment = new SlotAllotment(2);
+        this.vehicle = new Object();
+    }
+
+    @Test
+    public void givenNoVehiclesParked_ShouldReturnUnoccupiedListSizeAs0() {
+        int slotsAvailable = this.slotAllotment.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size();
+        Assert.assertEquals(2,slotsAvailable);
+    }
+
+    @Test
+    public void givenAVehicleToPark_InAnEmptyOccupiedList_ShouldReturnSize1() {
+        slotAllotment.parkUpdate(vehicle, 1);
+        Assert.assertEquals(1, slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
+        Assert.assertEquals(1, slotAllotment.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size());
+    }
+
+    @Test
+    public void givenAVehicleToUnPark_InAnOccupiedListWhichHas1Car_AfterUnParkShouldReturnSize0() {
+        slotAllotment.parkUpdate(vehicle, 1);
+        Assert.assertEquals(1, slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
+        Assert.assertEquals(1, slotAllotment.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size());
+        slotAllotment.unParkUpdate(vehicle);
+        Assert.assertEquals(0, slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
+        Assert.assertEquals(2, slotAllotment.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size());
+    }
+
+    @Test
+    public void givenAnEmptyParkingLot_WhenAskedForNearestParkingSlot_ShouldReturnSlot0() {
+        try {
+            Assert.assertEquals(1,slotAllotment.getNearestParkingSlot());
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAFullyOccupiedParkingLot_WhenAskedForNearestParkingSlot_ShouldThrowParkingFullException() {
+        try {
+            slotAllotment.parkUpdate(vehicle,1);
+            Object vehicle1 = new Object();
+            slotAllotment.parkUpdate(vehicle1,2);
+            Assert.assertEquals(2,slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
+            slotAllotment.getNearestParkingSlot();
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL,e.type);
+        }
+    }
+}
+

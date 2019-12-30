@@ -2,18 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLot {
-    private final ObserversInformer observersInformer;
+    private final SlotAllotment slotManager;
     private List parkedVehicles;
-    private int parkingCapacity;
     private boolean parkingCapacityFull;
 
-    public ParkingLot() {
-        this.parkedVehicles = new ArrayList();
-        this.observersInformer = new ObserversInformer();
-    }
-
-    public void setParkingLotCapacity(int capacity) {
-        this.parkingCapacity = capacity;
+    public ParkingLot(int parkingCapacity) {
+        this.parkedVehicles = new ArrayList(parkingCapacity);
+        this.slotManager = new SlotAllotment(parkingCapacity);
     }
 
     public boolean isThisCarPresentInTheParkingLot(Object vehicle) {
@@ -24,17 +19,22 @@ public class ParkingLot {
     }
 
     public void parkTheCar(Object vehicle) throws ParkingLotException {
-        if (this.parkedVehicles.size() == this.parkingCapacity) {
-            this.parkingCapacityFull = true;
-            this.observersInformer.informThatParkingIsFull();
-            throw new ParkingLotException("No space available in the parking lot!",
-                    ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL);
-        }
         if (this.isThisCarPresentInTheParkingLot(vehicle)) {
             throw new ParkingLotException("Car already present in parking lot!",
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
-        this.parkedVehicles.add(vehicle);
+        int slot = this.getSlot();
+        this.parkedVehicles.add(slot,vehicle);
+        this.slotManager.parkUpdate(vehicle,slot);
+    }
+
+    private int getSlot() throws ParkingLotException {
+        try {
+            return slotManager.getNearestParkingSlot()-1;
+        } catch (ParkingLotException e) {
+            this.parkingCapacityFull = true;
+            throw e;
+        }
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotException {
@@ -43,7 +43,7 @@ public class ParkingLot {
                     ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
         }
         this.parkedVehicles.remove(vehicle);
-        this.observersInformer.informThatParkingIsAvailable();
+        this.slotManager.unParkUpdate(vehicle);
         return;
     }
 }
