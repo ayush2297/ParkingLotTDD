@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 
 public class SlotAllotment {
 
-    public int parkingCapacity;
+    private int parkingCapacity;
     ArrayList<Integer> availableParkingSlots;
     private final ObserversInformer observersInformer;
 
