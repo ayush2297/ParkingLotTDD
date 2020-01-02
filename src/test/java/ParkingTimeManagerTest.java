@@ -11,6 +11,6 @@ public class ParkingTimeManagerTest {
         LocalDateTime currentTime = timeManager.getCurrentTime();
         LocalDateTime now = LocalDateTime.now();
         long millis = Duration.between(currentTime, now).toMillis();
-        Assert.assertEquals(millis, 0.0, 0);
+        Assert.assertEquals(0.0,millis, 0);
     }
 }

@@ -1,12 +1,11 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class ParkingLotSystem {
     private final ArrayList<ParkingLot> lots;
 
     public ParkingLotSystem(ParkingLot... parkingLot) {
         this.lots = new ArrayList<ParkingLot>();
-        Arrays.asList(parkingLot).stream().forEach(lot -> this.lots.add(lot));
+        Arrays.stream(parkingLot).forEach(lot -> this.lots.add(lot));
     }
 
     public void addParking(ParkingLot parkingLot) {
@@ -15,5 +14,17 @@ public class ParkingLotSystem {
 
     public int getNumberOfParkingLots() {
         return this.lots.size();
+    }
+
+    public void parkVehicle(Object vehicle) throws ParkingLotException {
+        List<ParkingLot> tempListOfLots = new ArrayList(this.lots);
+        Comparator<ParkingLot> sortLotsBasedOnSlotsAvailable =
+                Comparator.comparing(parkingLot -> parkingLot.getAvailableSlots().size(), Comparator.reverseOrder());
+        Collections.sort(tempListOfLots, sortLotsBasedOnSlotsAvailable);
+        tempListOfLots.get(0).parkTheCar(vehicle);
+    }
+
+    public ParkingLot getParkingLotOInWhichThisVehicleIsParked(Object vehicle) {
+        return this.lots.stream().filter(parkingLot -> parkingLot.vehicleAlreadyPresent(vehicle)).findFirst().get();
     }
 }
