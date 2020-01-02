@@ -15,10 +15,6 @@ public class Slot {
         this.parkingStartTime = parkingStartTime;
     }
 
-    public Object getVehicle() {
-        return vehicle;
-    }
-
     public LocalDateTime getParkingStartTime() {
         return parkingStartTime;
     }
