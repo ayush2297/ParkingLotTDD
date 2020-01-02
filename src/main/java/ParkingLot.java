@@ -1,36 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.IntStream;
 
 public class ParkingLot {
     private final SlotAllotment slotManager;
-    private List parkedVehicles;
+    private Object[] parkedVehicles;
     private boolean parkingCapacityFull;
 
     public ParkingLot(int parkingCapacity) {
-        this.parkedVehicles = new ArrayList(parkingCapacity);
+        this.parkedVehicles = new Object[parkingCapacity];
         this.slotManager = new SlotAllotment(parkingCapacity);
     }
 
-    public boolean isThisCarPresentInTheParkingLot(Object vehicle) {
-        if (this.parkedVehicles.contains(vehicle)) {
-            return true;
-        }
-        return false;
+    public Integer isThisCarPresentInTheParkingLot(Object vehicle) {
+        return IntStream.range(0, this.parkedVehicles.length)
+                .filter(i -> vehicle.equals(this.parkedVehicles[i])).findFirst().orElse(-1);
     }
 
     public void parkTheCar(Object vehicle) throws ParkingLotException {
-        if (this.isThisCarPresentInTheParkingLot(vehicle)) {
+        if (this.isThisCarPresentInTheParkingLot(vehicle) != -1) {
             throw new ParkingLotException("Car already present in parking lot!",
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
         int slot = this.getSlot();
-        this.parkedVehicles.add(slot,vehicle);
-        this.slotManager.parkUpdate(vehicle,slot);
+        this.parkedVehicles[slot] = vehicle;
+        this.slotManager.parkUpdate(slot + 1);
     }
 
     private int getSlot() throws ParkingLotException {
         try {
-            return slotManager.getNearestParkingSlot()-1;
+            return slotManager.getNearestParkingSlot() - 1;
         } catch (ParkingLotException e) {
             this.parkingCapacityFull = true;
             throw e;
@@ -38,12 +35,13 @@ public class ParkingLot {
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotException {
-        if (!this.isThisCarPresentInTheParkingLot(vehicle)) {
+        Integer isCarPresent = this.isThisCarPresentInTheParkingLot(vehicle);
+        if (isCarPresent == -1) {
             throw new ParkingLotException("No such car present in parking lot!",
                     ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
         }
-        this.parkedVehicles.remove(vehicle);
-        this.slotManager.unParkUpdate(vehicle);
+        this.parkedVehicles[isCarPresent] = null;
+        this.slotManager.unParkUpdate(isCarPresent + 1);
         return;
     }
 }

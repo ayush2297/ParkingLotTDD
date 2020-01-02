@@ -17,8 +17,8 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenParkedInParkingLot_ShouldReturnTrue() {
         try {
             parkingLot.parkTheCar(vehicle);
-            boolean isParked = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
-            Assert.assertTrue(isParked);
+            int isParked = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
+            Assert.assertEquals(0,isParked);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -30,8 +30,8 @@ public class ParkingLotTest {
         try {
             parkingLot.parkTheCar(vehicle);
             parkingLot.unParkTheCar(vehicle);
-            boolean thisCarPresentInTheParkingLot = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
-            Assert.assertFalse(thisCarPresentInTheParkingLot);
+            int thisCarPresentInTheParkingLot = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
+            Assert.assertEquals(-1,thisCarPresentInTheParkingLot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -105,8 +105,4 @@ public class ParkingLotTest {
         }
     }
 
-    @Test
-    public void name() {
-
-    }
 }

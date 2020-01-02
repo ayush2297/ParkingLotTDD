@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SlotAllotment {
 
     public int parkingCapacity;
-    Map<Availability, ArrayList> availableParkingSlots;
+    ArrayList<Integer> availableParkingSlots;
     private final ObserversInformer observersInformer;
 
     public SlotAllotment(int parkingCapacity) {
@@ -16,31 +14,24 @@ public class SlotAllotment {
     }
 
     private void setInitialParkingStatus(int parkingCapacity) {
-        this.availableParkingSlots = new HashMap<>();
-        ArrayList<Object> unoccupiedSlots = new ArrayList<>(parkingCapacity);
-        ArrayList<Object> occupiedSlots = new ArrayList<>(parkingCapacity);
+        this.availableParkingSlots = new ArrayList<>();
         for (Integer i = 1; i <= parkingCapacity; i++) {
-            unoccupiedSlots.add(i);
+            this.availableParkingSlots.add(i);
         }
-        this.availableParkingSlots.put(Availability.UNOCCUPIED, unoccupiedSlots);
-        this.availableParkingSlots.put(Availability.OCCUPIED, occupiedSlots);
     }
 
-    public void parkUpdate(Object vehicle, Integer slot) {
-        this.availableParkingSlots.get(Availability.OCCUPIED).add(vehicle);
-        this.availableParkingSlots.get(Availability.UNOCCUPIED).remove(slot);
+    public void parkUpdate(Integer slot) {
+        this.availableParkingSlots.remove(slot);
     }
 
-    public void unParkUpdate(Object vehicle) {
-        this.availableParkingSlots.get(Availability.UNOCCUPIED)
-                .add(this.availableParkingSlots.get(Availability.OCCUPIED).indexOf(vehicle)+1);
-        this.availableParkingSlots.get(Availability.OCCUPIED).remove(vehicle);
-        Collections.sort(this.availableParkingSlots.get(Availability.UNOCCUPIED));
+    public void unParkUpdate(Integer slot) {
+        this.availableParkingSlots.add(slot);
+        Collections.sort(this.availableParkingSlots);
     }
 
     public int getNearestParkingSlot() throws ParkingLotException {
         try {
-            return (Integer) this.availableParkingSlots.get(Availability.UNOCCUPIED).remove(0);
+            return this.availableParkingSlots.remove(0);
         } catch (IndexOutOfBoundsException e) {
             this.observersInformer.informThatParkingIsFull();
             throw new ParkingLotException("No parking space available!!",
