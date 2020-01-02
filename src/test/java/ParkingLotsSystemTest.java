@@ -13,7 +13,7 @@ public class ParkingLotsSystemTest {
     @Before
     public void setUp() {
         ParkingTimeManager timeManager = new ParkingTimeManager();
-        this.lot1 = new ParkingLot(3,timeManager);
+        this.lot1 = new ParkingLot(4,timeManager);
         this.lot2 = new ParkingLot(4,timeManager);
         this.vehicle1 = new Object();
         this.vehicle2 = new Object();
@@ -46,6 +46,10 @@ public class ParkingLotsSystemTest {
         try {
             parkingSystem.parkVehicle(vehicle1);
             parkingSystem.parkVehicle(vehicle2);
+            Object vehicle3 = new Object();
+            Object vehicle4 = new Object();
+            parkingSystem.parkVehicle(vehicle3);
+            parkingSystem.parkVehicle(vehicle4);
             ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle2);
             Assert.assertEquals(lot2,lot);
         } catch (ParkingLotException e) {

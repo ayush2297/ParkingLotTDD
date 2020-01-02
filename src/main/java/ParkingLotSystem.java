@@ -18,9 +18,7 @@ public class ParkingLotSystem {
 
     public void parkVehicle(Object vehicle) throws ParkingLotException {
         List<ParkingLot> tempListOfLots = new ArrayList(this.lots);
-        Comparator<ParkingLot> sortLotsBasedOnSlotsAvailable =
-                Comparator.comparing(parkingLot -> parkingLot.getAvailableSlots().size(), Comparator.reverseOrder());
-        Collections.sort(tempListOfLots, sortLotsBasedOnSlotsAvailable);
+        Collections.sort(tempListOfLots, Comparator.comparing(parkingLot -> parkingLot.getNumberOfVehiclesParked()));
         tempListOfLots.get(0).parkTheCar(vehicle);
     }
 

@@ -8,6 +8,7 @@ public class ParkingLot {
     private ParkingTimeManager parkingTimeManager;
     private ArrayList<Slot> parkingSlots;
     private boolean parkingCapacityFull;
+    private int numberOfCars = 0;
 
     public ParkingLot(int parkingCapacity) {
         this.parkingSlots = new ArrayList<Slot>(parkingCapacity);
@@ -42,12 +43,11 @@ public class ParkingLot {
 
     public void parkTheCar(Object vehicle) throws ParkingLotException {
         if (this.vehicleAlreadyPresent(vehicle)) {
-            int slot = this.getSlot();
-            this.partAtSlot(slot, vehicle);
-            return;
+            throw new ParkingLotException("No such car present in parking lot!",
+                    ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
-        throw new ParkingLotException("No such car present in parking lot!",
-                ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
+        int slot = this.getSlot();
+        this.partAtSlot(slot, vehicle);
     }
 
     public void parkAtFollowingSlot(int slotNumber, Object vehicle) throws ParkingLotException {
@@ -61,7 +61,7 @@ public class ParkingLot {
 
     public boolean vehicleAlreadyPresent(Object vehicle) {
         int isCarPresent = this.isThisVehiclePresentInTheParkingLot(vehicle);
-        if (isCarPresent != -1) {
+        if (isCarPresent == -1) {
             return false;
         }
         return true;
@@ -80,6 +80,7 @@ public class ParkingLot {
         Slot tempSlot = new Slot(vehicle, this.parkingTimeManager.getCurrentTime());
         this.parkingSlots.set(slot - 1, tempSlot);
         this.slotManager.parkUpdate(slot);
+        this.numberOfCars++;
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotException {
@@ -90,7 +91,7 @@ public class ParkingLot {
         }
         this.parkingSlots.set(isCarPresent, null);
         this.slotManager.unParkUpdate(isCarPresent + 1);
-        return;
+        this.numberOfCars--;
     }
 
     public int isThisVehiclePresentInTheParkingLot(Object vehicle) {
@@ -99,5 +100,9 @@ public class ParkingLot {
                 .filter(i -> tempSlot.equals(this.parkingSlots.get(i)))
                 .findFirst()
                 .orElse(-1);
+    }
+
+    public int getNumberOfVehiclesParked() {
+        return this.numberOfCars;
     }
 }
