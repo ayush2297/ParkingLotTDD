@@ -121,9 +121,9 @@ public class ParkingLotTest {
     @Test
     public void givenARequestFromOwnerToParkAtGivenSlot_SystemShouldAllotParkingSlotAccordingly() {
         try {
-            parkingLot.parkAtFollowingSlot(1, vehicle);
-            int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
-            Assert.assertEquals(1, vehicleSlot);
+            parkingLot.parkAtFollowingSlot(2, vehicle);
+            int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle)+1;
+            Assert.assertEquals(2, vehicleSlot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -157,12 +157,11 @@ public class ParkingLotTest {
         try {
             parkingLot.parkTheCar(vehicle);
             int tempSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
-            Assert.assertEquals(currTime,parkingLot.getSlotTimingDetails(tempSlot));
+            Assert.assertEquals(currTime, parkingLot.getVehicleTimingDetails(vehicle));
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
     }
 
-
-
 }
+

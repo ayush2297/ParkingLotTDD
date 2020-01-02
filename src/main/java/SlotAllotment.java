@@ -16,7 +16,7 @@ public class SlotAllotment {
 
     private void setInitialParkingStatus(int parkingCapacity) {
         this.availableParkingSlots = new ArrayList<>();
-        IntStream.range(1,parkingCapacity+1)
+        IntStream.range(1, parkingCapacity + 1)
                 .forEach(i -> this.availableParkingSlots.add(i));
     }
 
@@ -25,7 +25,7 @@ public class SlotAllotment {
     }
 
     public void unParkUpdate(Integer slot) {
-        this.availableParkingSlots.add((Integer)slot);
+        this.availableParkingSlots.add((Integer) slot);
         Collections.sort(this.availableParkingSlots);
     }
 
