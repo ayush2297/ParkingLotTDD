@@ -19,10 +19,15 @@ public class ParkingLotSystem {
     public void parkVehicle(Object vehicle) throws ParkingLotException {
         List<ParkingLot> tempListOfLots = new ArrayList(this.lots);
         Collections.sort(tempListOfLots, Comparator.comparing(parkingLot -> parkingLot.getNumberOfVehiclesParked()));
-        tempListOfLots.get(0).parkVehicleInThisLot(vehicle);
+        ParkingLot parkingLot = tempListOfLots.get(0);
+        parkingLot.parkVehicleInThisLot(vehicle);
     }
 
-    public ParkingLot getParkingLotOInWhichThisVehicleIsParked(Object vehicle) {
-        return this.lots.stream().filter(parkingLot -> parkingLot.vehicleAlreadyPresent(vehicle)).findFirst().get();
+    public ParkingLot getParkingLotOInWhichThisVehicleIsParked(Object vehicle) throws ParkingLotException {
+        return this.lots.stream().filter(parkingLot -> parkingLot.vehicleAlreadyPresent(vehicle)).findFirst()
+                .orElseThrow(() -> {
+                    return new ParkingLotException
+                            ("vehicle not parked in any lot!", ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
+                });
     }
 }

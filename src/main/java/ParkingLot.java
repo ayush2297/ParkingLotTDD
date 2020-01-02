@@ -36,6 +36,10 @@ public class ParkingLot {
         return this.slotManager.getAvailableSlotsList();
     }
 
+    public int getNumberOfVehiclesParked() {
+        return this.numberOfCars;
+    }
+
     public LocalDateTime getVehicleTimingDetails(Object vehicle) {
         Slot tempSlot = new Slot(vehicle);
         return this.parkingSlots.get(this.parkingSlots.indexOf(tempSlot)).getParkingStartTime();
@@ -57,14 +61,6 @@ public class ParkingLot {
         }
         throw new ParkingLotException("No such car present in parking lot!",
                 ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
-    }
-
-    public boolean vehicleAlreadyPresent(Object vehicle) {
-        int isCarPresent = this.FindSlotOfThisVehicle(vehicle);
-        if (isCarPresent == -1) {
-            return false;
-        }
-        return true;
     }
 
     private int getSlotToParkVehicle() throws ParkingLotException {
@@ -94,15 +90,19 @@ public class ParkingLot {
         this.numberOfCars--;
     }
 
+    public boolean vehicleAlreadyPresent(Object vehicle) {
+        int isCarPresent = this.FindSlotOfThisVehicle(vehicle);
+        if (isCarPresent == -1) {
+            return false;
+        }
+        return true;
+    }
+
     public int FindSlotOfThisVehicle(Object vehicle) {
         Slot tempSlot = new Slot(vehicle);
         return IntStream.range(0, this.parkingSlots.size())
                 .filter(i -> tempSlot.equals(this.parkingSlots.get(i)))
                 .findFirst()
                 .orElse(-1);
-    }
-
-    public int getNumberOfVehiclesParked() {
-        return this.numberOfCars;
     }
 }

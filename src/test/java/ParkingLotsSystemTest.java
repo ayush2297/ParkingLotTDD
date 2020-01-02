@@ -2,6 +2,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.mockito.Mockito.*;
+
 public class ParkingLotsSystemTest {
 
     private ParkingLot lot1;
@@ -13,8 +15,8 @@ public class ParkingLotsSystemTest {
     @Before
     public void setUp() {
         ParkingTimeManager timeManager = new ParkingTimeManager();
-        this.lot1 = new ParkingLot(4, timeManager);
-        this.lot2 = new ParkingLot(4, timeManager);
+        this.lot1 = mock(ParkingLot.class);
+        this.lot2 = mock(ParkingLot.class);
         this.vehicle1 = new Object();
         this.vehicle2 = new Object();
         this.parkingSystem = new ParkingLotSystem(lot1, lot2);
@@ -27,6 +29,7 @@ public class ParkingLotsSystemTest {
         parkingSystem.addParking(parkingLot3);
         int numberOfParkingLots = parkingSystem.getNumberOfParkingLots();
         Assert.assertEquals(3, numberOfParkingLots);
+
     }
 
     //*************** U C 9 B
@@ -34,6 +37,8 @@ public class ParkingLotsSystemTest {
     public void givenThatAllParkingLotsAreEmpty_FirstVehicleShouldGetParkedInFirstParkingLot() {
         try {
             parkingSystem.parkVehicle(vehicle1);
+            when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
+            when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
             Assert.assertEquals(lot1, lot);
         } catch (ParkingLotException e) {
@@ -50,10 +55,15 @@ public class ParkingLotsSystemTest {
             Object vehicle4 = new Object();
             parkingSystem.parkVehicle(vehicle3);
             parkingSystem.parkVehicle(vehicle4);
+            when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
+            when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
+            when(lot1.vehicleAlreadyPresent(vehicle2)).thenReturn(false);
+            when(lot2.vehicleAlreadyPresent(vehicle2)).thenReturn(true);
             ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle2);
             Assert.assertEquals(lot2, lot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
     }
+
 }
