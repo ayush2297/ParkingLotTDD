@@ -20,7 +20,7 @@ public class ParkingLotTest {
         try {
             parkingLot.parkTheCar(vehicle);
             int isParked = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
-            Assert.assertEquals(0,isParked);
+            Assert.assertEquals(0, isParked);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -33,7 +33,7 @@ public class ParkingLotTest {
             parkingLot.parkTheCar(vehicle);
             parkingLot.unParkTheCar(vehicle);
             int thisCarPresentInTheParkingLot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
-            Assert.assertEquals(-1,thisCarPresentInTheParkingLot);
+            Assert.assertEquals(-1, thisCarPresentInTheParkingLot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -111,7 +111,7 @@ public class ParkingLotTest {
     @Test
     public void givenARequestToViewAllAvailableSlots_ShoudlRetunAllAvailableSlots() {
         List availableSlots = this.parkingLot.getAvailableSlots();
-        Assert.assertEquals(this.parkingLot.slotManager.availableParkingSlots.size(),availableSlots.size());
+        Assert.assertEquals(this.parkingLot.slotManager.availableParkingSlots.size(), availableSlots.size());
     }
 
     @Test
@@ -131,9 +131,17 @@ public class ParkingLotTest {
         try {
             parkingLot.parkTheCar(vehicle);
             int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
-            Assert.assertEquals(0,vehicleSlot);
+            Assert.assertEquals(0, vehicleSlot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenARequestToFindAVehicleWhichIsNotParked_ShouldReturnNegative1() {
+        int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+        Assert.assertEquals(-1, vehicleSlot);
+    }
+
+
 }
