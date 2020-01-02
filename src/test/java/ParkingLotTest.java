@@ -23,8 +23,8 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenParkedInParkingLot_ShouldReturnTrue() {
         try {
-            parkingLot.parkTheCar(vehicle);
-            int isParked = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
+            int isParked = parkingLot.FindSlotOfThisVehicle(vehicle);
             Assert.assertEquals(0, isParked);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -34,9 +34,9 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
         try {
-            parkingLot.parkTheCar(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
             parkingLot.unParkTheCar(vehicle);
-            int thisCarPresentInTheParkingLot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            int thisCarPresentInTheParkingLot = parkingLot.FindSlotOfThisVehicle(vehicle);
             Assert.assertEquals(-1, thisCarPresentInTheParkingLot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenTriedToUnParkedEvenWhenItWasNotParked_ShouldReturnFalse() {
         try {
-            parkingLot.parkTheCar(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
             Object vehicle2 = new Object();
             parkingLot.unParkTheCar(vehicle2);
         } catch (ParkingLotException e) {
@@ -58,11 +58,11 @@ public class ParkingLotTest {
     @Test
     public void givenAParkingLotWithASize_WhenCapacityIsFull_ShouldThrowAnException() {
         try {
-            parkingLot.parkTheCar(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
             Object vehicle2 = new Object();
-            parkingLot.parkTheCar(vehicle2);
+            parkingLot.parkVehicleInThisLot(vehicle2);
             Object vehicle3 = new Object();
-            parkingLot.parkTheCar(vehicle3);
+            parkingLot.parkVehicleInThisLot(vehicle3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
@@ -72,8 +72,8 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_IfTriedToRePark_ShouldThrowAnException() {
         try {
-            parkingLot.parkTheCar(vehicle);
-            parkingLot.parkTheCar(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.CAR_ALREADY_PARKED, e.type);
@@ -83,11 +83,11 @@ public class ParkingLotTest {
     @Test
     public void whenParkingCapacityIsFull_AndOwnerIsInformedAboutIt_ShouldReturnTrue() {
         try {
-            this.parkingLot.parkTheCar(vehicle);
+            this.parkingLot.parkVehicleInThisLot(vehicle);
             Object vehicle2 = new Object();
-            parkingLot.parkTheCar(vehicle2);
+            parkingLot.parkVehicleInThisLot(vehicle2);
             Object vehicle3 = new Object();
-            parkingLot.parkTheCar(vehicle3);
+            parkingLot.parkVehicleInThisLot(vehicle3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
@@ -98,11 +98,11 @@ public class ParkingLotTest {
     @Test
     public void whenParkingCapacityIsFull_AndAllTheObserversAreInformedAboutIt_ShouldReturnTrue() {
         try {
-            this.parkingLot.parkTheCar(vehicle);
+            this.parkingLot.parkVehicleInThisLot(vehicle);
             Object vehicle2 = new Object();
-            parkingLot.parkTheCar(vehicle2);
+            parkingLot.parkVehicleInThisLot(vehicle2);
             Object vehicle3 = new Object();
-            parkingLot.parkTheCar(vehicle3);
+            parkingLot.parkVehicleInThisLot(vehicle3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
@@ -121,8 +121,8 @@ public class ParkingLotTest {
     @Test
     public void givenARequestFromOwnerToParkAtGivenSlot_SystemShouldAllotParkingSlotAccordingly() {
         try {
-            parkingLot.parkAtFollowingSlot(2, vehicle);
-            int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle)+1;
+            parkingLot.parkVehicleAtSpecifiedSlot(2, vehicle);
+            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle)+1;
             Assert.assertEquals(2, vehicleSlot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -133,8 +133,8 @@ public class ParkingLotTest {
     @Test
     public void givenARequestToFindAVehicleWhichIsParked_ShouldReturnSlotNumber() {
         try {
-            parkingLot.parkTheCar(vehicle);
-            int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
+            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle);
             Assert.assertEquals(0, vehicleSlot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -143,7 +143,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenARequestToFindAVehicleWhichIsNotParked_ShouldReturnNegative1() {
-        int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+        int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle);
         Assert.assertEquals(-1, vehicleSlot);
     }
 
@@ -155,8 +155,8 @@ public class ParkingLotTest {
         LocalDateTime currTime = LocalDateTime.now();
         when(timeManager.getCurrentTime()).thenReturn(currTime);
         try {
-            parkingLot.parkTheCar(vehicle);
-            int tempSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicle);
+            int tempSlot = parkingLot.FindSlotOfThisVehicle(vehicle);
             Assert.assertEquals(currTime, parkingLot.getVehicleTimingDetails(vehicle));
         } catch (ParkingLotException e) {
             e.printStackTrace();

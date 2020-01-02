@@ -41,18 +41,18 @@ public class ParkingLot {
         return this.parkingSlots.get(this.parkingSlots.indexOf(tempSlot)).getParkingStartTime();
     }
 
-    public void parkTheCar(Object vehicle) throws ParkingLotException {
+    public void parkVehicleInThisLot(Object vehicle) throws ParkingLotException {
         if (this.vehicleAlreadyPresent(vehicle)) {
             throw new ParkingLotException("No such car present in parking lot!",
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
-        int slot = this.getSlot();
-        this.partAtSlot(slot, vehicle);
+        int slot = this.getSlotToParkVehicle();
+        this.partVehicleAtSlot(slot, vehicle);
     }
 
-    public void parkAtFollowingSlot(int slotNumber, Object vehicle) throws ParkingLotException {
+    public void parkVehicleAtSpecifiedSlot(int slotNumber, Object vehicle) throws ParkingLotException {
         if (this.vehicleAlreadyPresent(vehicle)) {
-            this.partAtSlot(slotNumber, vehicle);
+            this.partVehicleAtSlot(slotNumber, vehicle);
             return;
         }
         throw new ParkingLotException("No such car present in parking lot!",
@@ -60,14 +60,14 @@ public class ParkingLot {
     }
 
     public boolean vehicleAlreadyPresent(Object vehicle) {
-        int isCarPresent = this.isThisVehiclePresentInTheParkingLot(vehicle);
+        int isCarPresent = this.FindSlotOfThisVehicle(vehicle);
         if (isCarPresent == -1) {
             return false;
         }
         return true;
     }
 
-    private int getSlot() throws ParkingLotException {
+    private int getSlotToParkVehicle() throws ParkingLotException {
         try {
             return slotManager.getNearestParkingSlot();
         } catch (ParkingLotException e) {
@@ -76,7 +76,7 @@ public class ParkingLot {
         }
     }
 
-    private void partAtSlot(int slot, Object vehicle) {
+    private void partVehicleAtSlot(int slot, Object vehicle) {
         Slot tempSlot = new Slot(vehicle, this.parkingTimeManager.getCurrentTime());
         this.parkingSlots.set(slot - 1, tempSlot);
         this.slotManager.parkUpdate(slot);
@@ -84,7 +84,7 @@ public class ParkingLot {
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotException {
-        Integer isCarPresent = this.isThisVehiclePresentInTheParkingLot(vehicle);
+        Integer isCarPresent = this.FindSlotOfThisVehicle(vehicle);
         if (isCarPresent == -1) {
             throw new ParkingLotException("No such car present in parking lot!",
                     ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
@@ -94,7 +94,7 @@ public class ParkingLot {
         this.numberOfCars--;
     }
 
-    public int isThisVehiclePresentInTheParkingLot(Object vehicle) {
+    public int FindSlotOfThisVehicle(Object vehicle) {
         Slot tempSlot = new Slot(vehicle);
         return IntStream.range(0, this.parkingSlots.size())
                 .filter(i -> tempSlot.equals(this.parkingSlots.get(i)))
