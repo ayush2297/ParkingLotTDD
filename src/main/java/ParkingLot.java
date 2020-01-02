@@ -3,18 +3,18 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class ParkingLot {
-    public final SlotAllotment slotManager;
+    private final SlotAllotment slotManager;
+    private ParkingTimeManager parkingTimeManager;
     private Slot[] parkingSlots;
     private boolean parkingCapacityFull;
-    private LocalDateTime localDateTime;
 
     public ParkingLot(int parkingCapacity) {
         this.parkingSlots = new Slot[parkingCapacity];
         this.slotManager = new SlotAllotment(parkingCapacity);
     }
 
-    public void setDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setParkingTimeManager(ParkingTimeManager parkingTimeManager) {
+        this.parkingTimeManager = parkingTimeManager;
     }
 
     public void parkTheCar(Object vehicle) throws ParkingLotException {
@@ -23,7 +23,7 @@ public class ParkingLot {
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
         int slot = this.getSlot();
-        Slot tempSlot = new Slot(vehicle,this.localDateTime.now());
+        Slot tempSlot = new Slot(vehicle,this.parkingTimeManager.getCurrentTime());
         this.parkingSlots[slot] = tempSlot;
         this.slotManager.parkUpdate(slot + 1);
     }
@@ -43,7 +43,7 @@ public class ParkingLot {
             throw new ParkingLotException("No such car present in parking lot!",
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
-        Slot tempSlot = new Slot(vehicle,this.localDateTime.now());
+        Slot tempSlot = new Slot(vehicle,this.parkingTimeManager.getCurrentTime());
         this.parkingSlots[slotNumber] = tempSlot;
         this.slotManager.unParkUpdate(slotNumber + 1);
     }
@@ -69,5 +69,9 @@ public class ParkingLot {
 
     public List getAvailableSlots() {
         return this.slotManager.availableParkingSlots;
+    }
+
+    public LocalDateTime getSlotTimingDetails(int tempSlot) {
+        return this.parkingSlots[tempSlot].getParkingStartTime();
     }
 }

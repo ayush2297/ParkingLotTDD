@@ -3,8 +3,8 @@ import java.util.Objects;
 
 public class Slot {
 
-    public Object vehicle;
-    public LocalDateTime parkingStartTime;
+    private Object vehicle;
+    private LocalDateTime parkingStartTime;
 
     public Slot(Object vehicle) {
         this.vehicle = vehicle;
@@ -19,16 +19,8 @@ public class Slot {
         return vehicle;
     }
 
-    public void setVehicle(Object vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public LocalDateTime getParkingStartTime() {
         return parkingStartTime;
-    }
-
-    public void setParkingStartTime(LocalDateTime parkingStartTime) {
-        this.parkingStartTime = parkingStartTime;
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ParkingLotTest {
 
@@ -16,6 +17,7 @@ public class ParkingLotTest {
     public void setup() {
         this.parkingLot = new ParkingLot(2);
         this.vehicle = new Object();
+        parkingLot.setParkingTimeManager(new ParkingTimeManager());
     }
 
     @Test
@@ -113,7 +115,7 @@ public class ParkingLotTest {
     @Test
     public void givenARequestToViewAllAvailableSlots_ShoudlRetunAllAvailableSlots() {
         List availableSlots = this.parkingLot.getAvailableSlots();
-        Assert.assertEquals(this.parkingLot.slotManager.availableParkingSlots.size(), availableSlots.size());
+        Assert.assertEquals(2, availableSlots.size());
     }
 
     @Test
@@ -148,6 +150,16 @@ public class ParkingLotTest {
     // *************** U C 8
     @Test
     public void givenAVehicleWhenParked_ShouldBeParkedWithParkingStartTime() {
-
+        ParkingTimeManager timeManager = mock(ParkingTimeManager.class);
+        parkingLot.setParkingTimeManager(timeManager);
+        LocalDateTime currTime = LocalDateTime.now();
+        when(timeManager.getCurrentTime()).thenReturn(currTime);
+        try {
+            parkingLot.parkTheCar(vehicle);
+            int tempSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            Assert.assertEquals(currTime,parkingLot.getSlotTimingDetails(tempSlot));
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 }
