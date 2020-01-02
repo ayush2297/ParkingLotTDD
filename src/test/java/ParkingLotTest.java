@@ -19,7 +19,7 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenParkedInParkingLot_ShouldReturnTrue() {
         try {
             parkingLot.parkTheCar(vehicle);
-            int isParked = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
+            int isParked = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
             Assert.assertEquals(0,isParked);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -32,7 +32,7 @@ public class ParkingLotTest {
         try {
             parkingLot.parkTheCar(vehicle);
             parkingLot.unParkTheCar(vehicle);
-            int thisCarPresentInTheParkingLot = parkingLot.isThisCarPresentInTheParkingLot(vehicle);
+            int thisCarPresentInTheParkingLot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
             Assert.assertEquals(-1,thisCarPresentInTheParkingLot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -112,5 +112,28 @@ public class ParkingLotTest {
     public void givenARequestToViewAllAvailableSlots_ShoudlRetunAllAvailableSlots() {
         List availableSlots = this.parkingLot.getAvailableSlots();
         Assert.assertEquals(this.parkingLot.slotManager.availableParkingSlots.size(),availableSlots.size());
+    }
+
+    @Test
+    public void givenARequestFromOwnerToParkAtGivenSlot_SystemShouldAllotParkingSlotAccordingly() {
+        try {
+            parkingLot.parkFollowingSlot(1, vehicle);
+            int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            Assert.assertEquals(1, vehicleSlot);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // **************** U C 7
+    @Test
+    public void givenARequestToFindAVehicleWhichIsParked_ShouldReturnSlotNumber() {
+        try {
+            parkingLot.parkTheCar(vehicle);
+            int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
+            Assert.assertEquals(0,vehicleSlot);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 }
