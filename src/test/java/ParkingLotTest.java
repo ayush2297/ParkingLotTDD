@@ -2,7 +2,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
 
 public class ParkingLotTest {
 
@@ -25,7 +28,6 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
@@ -117,7 +119,7 @@ public class ParkingLotTest {
     @Test
     public void givenARequestFromOwnerToParkAtGivenSlot_SystemShouldAllotParkingSlotAccordingly() {
         try {
-            parkingLot.parkFollowingSlot(1, vehicle);
+            parkingLot.parkAtFollowingSlot(1, vehicle);
             int vehicleSlot = parkingLot.isThisVehiclePresentInTheParkingLot(vehicle);
             Assert.assertEquals(1, vehicleSlot);
         } catch (ParkingLotException e) {
@@ -143,5 +145,9 @@ public class ParkingLotTest {
         Assert.assertEquals(-1, vehicleSlot);
     }
 
+    // *************** U C 8
+    @Test
+    public void givenAVehicleWhenParked_ShouldBeParkedWithParkingStartTime() {
 
+    }
 }

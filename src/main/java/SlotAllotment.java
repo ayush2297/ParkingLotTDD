@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.IntStream;
 
 public class SlotAllotment {
 
@@ -15,17 +16,16 @@ public class SlotAllotment {
 
     private void setInitialParkingStatus(int parkingCapacity) {
         this.availableParkingSlots = new ArrayList<>();
-        for (Integer i = 1; i <= parkingCapacity; i++) {
-            this.availableParkingSlots.add(i);
-        }
+        IntStream.range(1,parkingCapacity)
+                .forEach(i -> this.availableParkingSlots.add(i));
     }
 
     public void parkUpdate(Integer slot) {
-        this.availableParkingSlots.remove(slot);
+        this.availableParkingSlots.remove((Integer) slot);
     }
 
     public void unParkUpdate(Integer slot) {
-        this.availableParkingSlots.add(slot);
+        this.availableParkingSlots.add((Integer)slot);
         Collections.sort(this.availableParkingSlots);
     }
 
