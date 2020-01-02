@@ -2,6 +2,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class ParkingLotTest {
 
     ParkingLot parkingLot;
@@ -105,4 +107,10 @@ public class ParkingLotTest {
         }
     }
 
+    //*************** U C 6
+    @Test
+    public void givenARequestToViewAllAvailableSlots_ShoudlRetunAllAvailableSlots() {
+        List availableSlots = this.parkingLot.getAvailableSlots();
+        Assert.assertEquals(this.parkingLot.slotManager.availableParkingSlots.size(),availableSlots.size());
+    }
 }

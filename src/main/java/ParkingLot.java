@@ -1,7 +1,8 @@
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class ParkingLot {
-    private final SlotAllotment slotManager;
+    public final SlotAllotment slotManager;
     private Object[] parkedVehicles;
     private boolean parkingCapacityFull;
 
@@ -43,5 +44,9 @@ public class ParkingLot {
         this.parkedVehicles[isCarPresent] = null;
         this.slotManager.unParkUpdate(isCarPresent + 1);
         return;
+    }
+
+    public List getAvailableSlots() {
+        return this.slotManager.availableParkingSlots;
     }
 }
