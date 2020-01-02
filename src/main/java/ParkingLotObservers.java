@@ -5,4 +5,5 @@ public enum ParkingLotObservers {
     ParkingLotObservers(boolean isParkingFull) {
         this.isParkingFull = isParkingFull;
     }
+
 }

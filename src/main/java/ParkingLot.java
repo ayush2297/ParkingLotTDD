@@ -25,7 +25,7 @@ public class ParkingLot {
     }
 
     public List getAvailableSlots() {
-        return this.slotManager.availableParkingSlots;
+        return this.slotManager.getAvailableSlotsList();
     }
 
     public LocalDateTime getVehicleTimingDetails(Object vehicle) {
@@ -63,7 +63,7 @@ public class ParkingLot {
 
     private void partAtSlot(int slot, Object vehicle) {
         Slot tempSlot = new Slot(vehicle, this.parkingTimeManager.getCurrentTime());
-        this.parkingSlots.add(slot-1,tempSlot);
+        this.parkingSlots.set(slot-1,tempSlot);
         this.slotManager.parkUpdate(slot);
     }
 

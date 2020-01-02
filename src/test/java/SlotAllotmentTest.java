@@ -15,22 +15,22 @@ public class SlotAllotmentTest {
 
     @Test
     public void givenNoVehiclesParked_ShouldReturnUnoccupiedListSizeAs0() {
-        int slotsAvailable = this.slotAllotment.availableParkingSlots.size();
+        int slotsAvailable = this.slotAllotment.getAvailableSlotsList().size();
         Assert.assertEquals(2,slotsAvailable);
     }
 
     @Test
     public void givenAVehicleToPark_InAnEmptyOccupiedList_ShouldReturnSize1() {
         slotAllotment.parkUpdate(1);
-        Assert.assertEquals(1, slotAllotment.availableParkingSlots.size());
+        Assert.assertEquals(1, this.slotAllotment.getAvailableSlotsList().size());
     }
 
     @Test
     public void givenAVehicleToUnPark_InAnOccupiedListWhichHas1Car_AfterUnParkShouldReturnSize0() {
         slotAllotment.parkUpdate(1);
-        Assert.assertEquals(1, slotAllotment.availableParkingSlots.size());
+        Assert.assertEquals(1, this.slotAllotment.getAvailableSlotsList().size());
         slotAllotment.unParkUpdate(1);
-        Assert.assertEquals(2, slotAllotment.availableParkingSlots.size());
+        Assert.assertEquals(2, this.slotAllotment.getAvailableSlotsList().size());
     }
 
     @Test

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ObserversInformer {
@@ -6,9 +7,7 @@ public class ObserversInformer {
 
     public ObserversInformer() {
         this.observers = new ArrayList();
-        for (ParkingLotObservers observer: ParkingLotObservers.values()) {
-            this.observers.add(observer);
-        }
+        this.observers.addAll(Arrays.asList(ParkingLotObservers.values()));
     }
 
     public void informThatParkingIsFull() {

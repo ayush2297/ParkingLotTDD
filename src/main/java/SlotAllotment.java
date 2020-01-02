@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class SlotAllotment {
 
     private int parkingCapacity;
-    ArrayList<Integer> availableParkingSlots;
+    private ArrayList<Integer> availableParkingSlots;
     private final ObserversInformer observersInformer;
 
     public SlotAllotment(int parkingCapacity) {
@@ -37,5 +38,9 @@ public class SlotAllotment {
             throw new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL);
         }
+    }
+
+    public List getAvailableSlotsList() {
+        return this.availableParkingSlots;
     }
 }
