@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 public class ParkingLot {
     private final SlotAllotment slotManager;
+    private int parkingCapacity;
     private ParkingTimeManager parkingTimeManager;
     private ArrayList<Slot> parkingSlots;
     private boolean parkingCapacityFull;
@@ -20,6 +21,7 @@ public class ParkingLot {
         this.parkingSlots = new ArrayList<Slot>(parkingCapacity);
         this.slotManager = new SlotAllotment(parkingCapacity);
         this.setInitialValuesToSlots(parkingCapacity);
+        this.parkingCapacity = parkingCapacity;
         this.parkingTimeManager = timeManager;
     }
 
@@ -34,6 +36,10 @@ public class ParkingLot {
 
     public List getAvailableSlots() {
         return this.slotManager.getAvailableSlotsList();
+    }
+
+    public int getParkingCapacity() {
+        return parkingCapacity;
     }
 
     public int getNumberOfVehiclesParked() {
