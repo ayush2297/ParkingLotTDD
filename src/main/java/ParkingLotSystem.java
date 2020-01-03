@@ -19,7 +19,7 @@ public class ParkingLotSystem {
         parkVehicle(vehicle,DriverType.NORMAL);
     }
     public void parkVehicle(Object vehicle,DriverType type) throws ParkingLotException {
-        ParkingLot parkingLot = type.getLot(this.lots);
+        ParkingLot parkingLot = type.getLot(getLotsList());
         parkingLot.parkVehicleInThisLot(vehicle);
     }
 
@@ -34,5 +34,9 @@ public class ParkingLotSystem {
                     return new ParkingLotException
                             ("vehicle not parked in any lot!", ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
                 });
+    }
+
+    public ArrayList<ParkingLot> getLotsList() {
+        return this.lots;
     }
 }

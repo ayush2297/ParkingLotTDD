@@ -2,6 +2,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 public class ParkingLotsSystemTest {
@@ -11,12 +14,17 @@ public class ParkingLotsSystemTest {
     private ParkingLotSystem parkingSystem;
     private Object vehicle1;
     private Object vehicle2;
+    private DriverType driverType;
 
     @Before
     public void setUp() {
         ParkingTimeManager timeManager = new ParkingTimeManager();
         this.lot1 = mock(ParkingLot.class);
         this.lot2 = mock(ParkingLot.class);
+        List<ParkingLot> tempList = new ArrayList<>();
+        tempList.add(lot1);
+        tempList.add(lot2);
+        this.driverType = mock(DriverType.class);
         this.vehicle1 = new Object();
         this.vehicle2 = new Object();
         this.parkingSystem = new ParkingLotSystem(lot1, lot2);
@@ -36,6 +44,10 @@ public class ParkingLotsSystemTest {
     @Test
     public void givenThatAllParkingLotsAreEmpty_FirstVehicleShouldGetParkedInFirstParkingLot() {
         try {
+            when(lot1.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
             parkingSystem.parkVehicle(vehicle1);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
@@ -45,15 +57,20 @@ public class ParkingLotsSystemTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenThatAllParkingLotsAreEmpty_SecondVehicleShouldGetParkedInSecondParkingLot() {
         try {
+            when(lot1.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
             parkingSystem.parkVehicle(vehicle1);
+            when(lot1.getNumberOfVehiclesParked()).thenReturn(1);
+            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
             parkingSystem.parkVehicle(vehicle2);
-            Object vehicle3 = new Object();
-            Object vehicle4 = new Object();
-            parkingSystem.parkVehicle(vehicle3);
-            parkingSystem.parkVehicle(vehicle4);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot1.vehicleAlreadyPresent(vehicle2)).thenReturn(false);
@@ -68,11 +85,24 @@ public class ParkingLotsSystemTest {
     @Test
     public void givenARequestToUnParkAVehicle_ShouldGetUnParked() {
         try {
+            when(lot1.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
             parkingSystem.parkVehicle(vehicle1);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
-            Assert.assertEquals(lot1,presentLot);
+            Assert.assertEquals(lot1, presentLot);
+
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenARequestToUnParkAVehicle_ThatWasNotParked_ShouldGetUnParked() {
+        try {
             parkingSystem.UnParkVehicle(vehicle1);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
@@ -88,14 +118,18 @@ public class ParkingLotsSystemTest {
         try {
             when(lot1.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
             parkingSystem.parkVehicle(vehicle1);
             when(lot1.getNumberOfVehiclesParked()).thenReturn(1);
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
-            parkingSystem.parkVehicle(vehicle2,DriverType.HANDICAPPED);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
+            parkingSystem.parkVehicle(vehicle2, DriverType.HANDICAPPED);
             when(lot1.vehicleAlreadyPresent(vehicle2)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle2)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle2);
-            Assert.assertEquals(lot1,presentLot);
+            Assert.assertEquals(lot1, presentLot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
