@@ -36,4 +36,33 @@ public class DriverTypeTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenARequestBySecondVehicleToGetLotForNormalDriver_ShouldReturnSecondLot() {
+        try {
+            when(lot1.getNumberOfVehiclesParked()).thenReturn(1);
+            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
+            ParkingLot lot = DriverType.NORMAL.getLot(listOfLots);
+            Assert.assertEquals(lot2,lot);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenARequestByAVehicleToGetLotForHandicappedDriver_InAnAlreadyOccupiedSystem_ShouldReturnNearestLotWithAvailableSlots() {
+        try {
+            when(lot1.getNumberOfVehiclesParked()).thenReturn(1);
+            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
+            when(lot1.getParkingCapacity()).thenReturn(2);
+            when(lot2.getParkingCapacity()).thenReturn(2);
+            ParkingLot lot = DriverType.HANDICAPPED.getLot(listOfLots);
+            Assert.assertEquals(lot1,lot);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
