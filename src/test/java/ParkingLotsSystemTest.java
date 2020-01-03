@@ -94,16 +94,21 @@ public class ParkingLotsSystemTest {
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
             Assert.assertEquals(lot1, presentLot);
-
+            parkingSystem.unParkVehicle(vehicle1);
+            verify(lot1).unParkFromParkingLot(vehicle1);
+            when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
+            when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
+            ParkingLot absentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
         } catch (ParkingLotException e) {
             e.printStackTrace();
+            Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED, e.type);
         }
     }
 
     @Test
     public void givenARequestToUnParkAVehicle_ThatWasNotParked_ShouldGetUnParked() {
         try {
-            parkingSystem.UnParkVehicle(vehicle1);
+            parkingSystem.unParkVehicle(vehicle1);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot absentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);

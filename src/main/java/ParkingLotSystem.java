@@ -23,7 +23,7 @@ public class ParkingLotSystem {
         parkingLot.parkVehicleInThisLot(vehicle);
     }
 
-    public void UnParkVehicle(Object vehicle) throws ParkingLotException {
+    public void unParkVehicle(Object vehicle) throws ParkingLotException {
         ParkingLot parkingLotOfThisVehicle = this.getParkingLotOInWhichThisVehicleIsParked(vehicle);
         parkingLotOfThisVehicle.unParkFromParkingLot(vehicle);
     }

@@ -30,7 +30,7 @@ public class SlotAllotment {
         Collections.sort(this.availableParkingSlots);
     }
 
-    public int getNearestParkingSlot() throws ParkingLotException {
+    public int getParkingSlot() throws ParkingLotException {
         try {
             return this.availableParkingSlots.remove(0);
         } catch (IndexOutOfBoundsException e) {

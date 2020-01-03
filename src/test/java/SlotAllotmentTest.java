@@ -36,7 +36,7 @@ public class SlotAllotmentTest {
     @Test
     public void givenAnEmptyParkingLot_WhenAskedForNearestParkingSlot_ShouldReturnSlot0() {
         try {
-            Assert.assertEquals(1,slotAllotment.getNearestParkingSlot());
+            Assert.assertEquals(1,slotAllotment.getParkingSlot());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class SlotAllotmentTest {
             slotAllotment.parkUpdate(1);
             Object vehicle1 = new Object();
             slotAllotment.parkUpdate(2);
-            slotAllotment.getNearestParkingSlot();
+            slotAllotment.getParkingSlot();
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL,e.type);
