@@ -4,8 +4,7 @@ public class ParkingLotSystem {
     private final ArrayList<ParkingLot> lots;
 
     public ParkingLotSystem(ParkingLot... parkingLot) {
-        this.lots = new ArrayList<ParkingLot>();
-        Arrays.stream(parkingLot).forEach(lot -> this.lots.add(lot));
+        this.lots = new ArrayList<>(Arrays.asList(parkingLot));
     }
 
     public void addParking(ParkingLot parkingLot) {
@@ -21,6 +20,11 @@ public class ParkingLotSystem {
         Collections.sort(tempListOfLots, Comparator.comparing(parkingLot -> parkingLot.getNumberOfVehiclesParked()));
         ParkingLot parkingLot = tempListOfLots.get(0);
         parkingLot.parkVehicleInThisLot(vehicle);
+    }
+
+    public void UnParkVehicle(Object vehicle) throws ParkingLotException {
+        ParkingLot parkingLotOfThisVehicle = this.getParkingLotOInWhichThisVehicleIsParked(vehicle);
+        parkingLotOfThisVehicle.unParkFromParkingLot(vehicle);
     }
 
     public ParkingLot getParkingLotOInWhichThisVehicleIsParked(Object vehicle) throws ParkingLotException {

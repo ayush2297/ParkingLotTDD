@@ -45,7 +45,6 @@ public class ParkingLotsSystemTest {
             e.printStackTrace();
         }
     }
-
     @Test
     public void givenThatAllParkingLotsAreEmpty_SecondVehicleShouldGetParkedInSecondParkingLot() {
         try {
@@ -63,6 +62,20 @@ public class ParkingLotsSystemTest {
             Assert.assertEquals(lot2, lot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenARequestToUnParkAVehicle_ShouldGetUnParked() {
+        try {
+            parkingSystem.parkVehicle(vehicle1);
+            parkingSystem.UnParkVehicle(vehicle1);
+            when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
+            when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
+            ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+            Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED, e.type);
         }
     }
 

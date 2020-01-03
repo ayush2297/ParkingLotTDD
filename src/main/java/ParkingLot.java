@@ -79,7 +79,7 @@ public class ParkingLot {
         this.numberOfCars++;
     }
 
-    public void unParkTheCar(Object vehicle) throws ParkingLotException {
+    public void unParkFromParkingLot(Object vehicle) throws ParkingLotException {
         Integer isCarPresent = this.FindSlotOfThisVehicle(vehicle);
         if (isCarPresent == -1) {
             throw new ParkingLotException("No such car present in parking lot!",

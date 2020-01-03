@@ -35,7 +35,7 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
         try {
             parkingLot.parkVehicleInThisLot(vehicle);
-            parkingLot.unParkTheCar(vehicle);
+            parkingLot.unParkFromParkingLot(vehicle);
             int thisCarPresentInTheParkingLot = parkingLot.FindSlotOfThisVehicle(vehicle);
             Assert.assertEquals(-1, thisCarPresentInTheParkingLot);
         } catch (ParkingLotException e) {
@@ -48,7 +48,7 @@ public class ParkingLotTest {
         try {
             parkingLot.parkVehicleInThisLot(vehicle);
             Object vehicle2 = new Object();
-            parkingLot.unParkTheCar(vehicle2);
+            parkingLot.unParkFromParkingLot(vehicle2);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED, e.type);
