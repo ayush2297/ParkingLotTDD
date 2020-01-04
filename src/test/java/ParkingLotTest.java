@@ -40,9 +40,9 @@ public class ParkingLotTest {
         this.vehicle3 = new Object();
         this.vehicle4 = new Object();
         this.vehicleDetails1 = new ParkedVehicleDetails(vehicle1, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
-        this.vehicleDetails2 = new ParkedVehicleDetails(vehicle2, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
+        this.vehicleDetails2 = new ParkedVehicleDetails(vehicle2, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.WHITE);
         this.vehicleDetails3 = new ParkedVehicleDetails(vehicle3, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
-        this.vehicleDetails4 = new ParkedVehicleDetails(vehicle4, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
+        this.vehicleDetails4 = new ParkedVehicleDetails(vehicle4, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.WHITE);
         parkingLot.setParkingTimeManager(new ParkingTimeManager());
     }
 
@@ -245,7 +245,15 @@ public class ParkingLotTest {
 
     @Test
     public void givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitVehicleWithSlotNumber() {
-        List<Integer> slotNumberListOfVehiclesByColor = parkingLot.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
+        try {
+            parkingLot.setSlotAllotment(new SlotAllotment(2));
+            parkingLot.parkVehicleInThisLot(vehicleDetails2);
+            parkingLot.parkVehicleInThisLot(vehicleDetails4);
+            List<Integer> slotNumberListOfVehiclesByColor = parkingLot.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
+            Assert.assertEquals(2, slotNumberListOfVehiclesByColor.size());
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 }
 
