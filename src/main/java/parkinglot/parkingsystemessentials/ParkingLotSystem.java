@@ -19,8 +19,8 @@ public class ParkingLotSystem {
         return this.lots.size();
     }
 
-    public void parkVehicle(ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
-        ParkingLot parkingLot = vehicleDetails.getVehicleSize().getLot(getLotsList(), vehicleDetails.getDriverType());
+    public void parkVehicle(ParkedVehicleDetails vehicleDetails, ParkingStrategy parkingStrategy) throws ParkingLotException {
+        ParkingLot parkingLot = parkingStrategy.getParkingStrategy().getLot(this.getLotsList());
         parkingLot.parkVehicleInThisLot(vehicleDetails);
     }
 

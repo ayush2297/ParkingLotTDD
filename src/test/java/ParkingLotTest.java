@@ -226,11 +226,6 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitVehicleWithSlotNumber() {
-        List<Integer> slotNumberListOfVehiclesByColor = parkingLot.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
-    }
-
-    @Test
     public void givenAVehicle_IfPresentInTheParkingLot_ShouldReturnTrue() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
@@ -246,6 +241,11 @@ public class ParkingLotTest {
     public void givenAVehicle_IfNotPresentInTheParkingLot_ShouldReturnFalse() {
         boolean vehiclePresent = parkingLot.vehicleAlreadyPresent(vehicle1);
         Assert.assertFalse(vehiclePresent);
+    }
+
+    @Test
+    public void givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitVehicleWithSlotNumber() {
+        List<Integer> slotNumberListOfVehiclesByColor = parkingLot.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
     }
 }
 

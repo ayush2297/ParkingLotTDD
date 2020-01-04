@@ -4,10 +4,9 @@ import org.junit.Test;
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
 import parkinglot.parkinglotessentials.ParkingTimeManager;
-import parkinglot.vehicleessentials.DriverType;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.parkingsystemessentials.ParkingLotSystem;
-import parkinglot.vehicleessentials.VehicleSize;
+import parkinglot.parkingsystemessentials.ParkingStrategy;
 
 import static org.mockito.Mockito.*;
 
@@ -30,8 +29,6 @@ public class ParkingLotsSystemTest {
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
-//        this.lot1 = new parkinglot.parkinglotessentials.ParkingLot(3);
-//        this.lot2 = new parkinglot.parkinglotessentials.ParkingLot(5);
         this.parkingSystem = new ParkingLotSystem(lot1, lot2);
     }
 
@@ -53,9 +50,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            when(vehicleDetails1.getDriverType()).thenReturn(DriverType.NORMAL);
-            when(vehicleDetails1.getVehicleSize()).thenReturn(VehicleSize.SMALL);
-            parkingSystem.parkVehicle(vehicleDetails1);
+            parkingSystem.parkVehicle(vehicleDetails1, ParkingStrategy.NORMAL);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -72,9 +67,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            when(vehicleDetails1.getDriverType()).thenReturn(DriverType.NORMAL);
-            when(vehicleDetails1.getVehicleSize()).thenReturn(VehicleSize.SMALL);
-            parkingSystem.parkVehicle(vehicleDetails1);
+            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.NORMAL);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -91,9 +84,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            when(vehicleDetails1.getDriverType()).thenReturn(DriverType.NORMAL);
-            when(vehicleDetails1.getVehicleSize()).thenReturn(VehicleSize.SMALL);
-            parkingSystem.parkVehicle(vehicleDetails1);
+            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.NORMAL);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -129,9 +120,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            when(vehicleDetails1.getDriverType()).thenReturn(DriverType.HANDICAPPED);
-            when(vehicleDetails1.getVehicleSize()).thenReturn(VehicleSize.SMALL);
-            parkingSystem.parkVehicle(vehicleDetails1);
+            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.HANDICAP);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -144,14 +133,11 @@ public class ParkingLotsSystemTest {
     @Test
     public void givenALargeVehicle_ShouldGetParkedInTheLotWithMostEmptySlots() {
         try {
-            Object largeVehicle = new Object();
-            when(this.vehicleDetails1.getDriverType()).thenReturn(DriverType.HANDICAPPED);
-            when(this.vehicleDetails1.getVehicleSize()).thenReturn(VehicleSize.LARGE);
             when(lot1.getParkingCapacity()).thenReturn(6);
             when(lot2.getParkingCapacity()).thenReturn(10);
             when(lot1.getNumberOfVehiclesParked()).thenReturn(4);
             when(lot2.getNumberOfVehiclesParked()).thenReturn(2);
-            parkingSystem.parkVehicle(vehicleDetails1);
+            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.LARGE_VEHICLE);
             verify(lot2).parkVehicleInThisLot(vehicleDetails1);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
