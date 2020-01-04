@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import parkinglot.parkinglotessentials.ParkingLotException;
+import parkinglot.parkinglotessentials.SlotAllotment;
 
 public class SlotAllotmentTest {
 

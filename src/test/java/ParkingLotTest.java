@@ -1,6 +1,10 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import parkinglot.parkinglotessentials.ParkingLot;
+import parkinglot.parkinglotessentials.ParkingLotException;
+import parkinglot.parkinglotessentials.ParkingTimeManager;
+import parkinglot.parkinglotessentials.SlotAllotment;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

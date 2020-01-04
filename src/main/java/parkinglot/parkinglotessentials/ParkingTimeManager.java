@@ -1,3 +1,5 @@
+package parkinglot.parkinglotessentials;
+
 import java.time.LocalDateTime;
 
 public class ParkingTimeManager {

@@ -1,3 +1,5 @@
+package parkinglot.parkingsystemessentials;
+
 public class ParkedVehicleDetails {
 
     private final VehicleSize vehicleSize;

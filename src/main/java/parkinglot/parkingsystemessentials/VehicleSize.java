@@ -1,3 +1,8 @@
+package parkinglot.parkingsystemessentials;
+
+import parkinglot.parkinglotessentials.ParkingLot;
+import parkinglot.parkinglotessentials.ParkingLotException;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 

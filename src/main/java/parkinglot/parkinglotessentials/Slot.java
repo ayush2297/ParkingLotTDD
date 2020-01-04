@@ -1,3 +1,7 @@
+package parkinglot.parkinglotessentials;
+
+import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 

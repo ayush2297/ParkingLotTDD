@@ -1,3 +1,7 @@
+package parkinglot.parkinglotessentials;
+
+import parkinglot.observers.ObserversInformer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

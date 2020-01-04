@@ -1,9 +1,13 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
+import parkinglot.parkinglotessentials.ParkingLot;
+import parkinglot.parkinglotessentials.ParkingLotException;
+import parkinglot.parkinglotessentials.ParkingTimeManager;
+import parkinglot.parkingsystemessentials.DriverType;
+import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+import parkinglot.parkingsystemessentials.ParkingLotSystem;
+import parkinglot.parkingsystemessentials.VehicleSize;
 
 import static org.mockito.Mockito.*;
 
@@ -20,11 +24,8 @@ public class ParkingLotsSystemTest {
         ParkingTimeManager timeManager = new ParkingTimeManager();
         this.lot1 = mock(ParkingLot.class);
         this.lot2 = mock(ParkingLot.class);
-//        this.lot1 = new ParkingLot(3);
-//        this.lot2 = new ParkingLot(5);
-        List<ParkingLot> tempList = new ArrayList<>();
-        tempList.add(lot1);
-        tempList.add(lot2);
+//        this.lot1 = new parkinglot.parkinglotessentials.ParkingLot(3);
+//        this.lot2 = new parkinglot.parkinglotessentials.ParkingLot(5);
         this.vehicle1 = new Object();
         this.vehicle2 = new Object();
         this.parkingSystem = new ParkingLotSystem(lot1, lot2);
@@ -62,12 +63,7 @@ public class ParkingLotsSystemTest {
     @Test
     public void givenThatAllParkingLotsAreEmpty_SecondVehicleShouldGetParkedInSecondParkingLot() {
         try {
-            when(lot1.getNumberOfVehiclesParked()).thenReturn(0);
-            when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
-            when(lot1.getParkingCapacity()).thenReturn(2);
-            when(lot2.getParkingCapacity()).thenReturn(2);
             ParkedVehicleDetails details = new ParkedVehicleDetails(DriverType.NORMAL, VehicleSize.SMALL);
-            parkingSystem.parkVehicle(vehicle1, details);
             when(lot1.getNumberOfVehiclesParked()).thenReturn(1);
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);

@@ -1,5 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
+import parkinglot.observers.ObserversInformer;
+import parkinglot.observers.ParkingLotObservers;
 
 public class ObserversInformerTest {
 

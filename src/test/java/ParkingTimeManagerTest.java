@@ -1,5 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
+import parkinglot.parkinglotessentials.ParkingTimeManager;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
