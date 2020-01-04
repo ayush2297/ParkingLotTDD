@@ -1,7 +1,10 @@
 package parkinglot.parkinglotessentials;
 
+import com.sun.imageio.plugins.wbmp.WBMPImageWriter;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class ParkingLot {
         return this.numberOfCars;
     }
 
-    public LocalDateTime getVehicleTimingDetails(Object vehicle) {
+    public LocalDateTime getVehicleTimingDetails(Vehicle vehicle) {
         Slot tempSlot = new Slot(new ParkedVehicleDetails(vehicle));
         return this.parkingSlots.get(this.parkingSlots.indexOf(tempSlot)).getParkingStartTime();
     }
@@ -55,7 +58,7 @@ public class ParkingLot {
     }
 
     public void parkVehicleAtSpecifiedSlot(int slotNumber, ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
-        if (this.vehicleAlreadyPresent(vehicleDetails)) {
+        if (this.vehicleAlreadyPresent(vehicleDetails.getVehicle())) {
             throw new ParkingLotException("No such car present in parking lot!",
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
@@ -78,7 +81,7 @@ public class ParkingLot {
         this.numberOfCars++;
     }
 
-    public void unParkFromParkingLot(Object vehicle) throws ParkingLotException {
+    public void unParkFromParkingLot(Vehicle vehicle) throws ParkingLotException {
         Integer isCarPresent = this.FindSlotOfThisVehicle(vehicle);
         if (isCarPresent == -1) {
             throw new ParkingLotException("No such car present in parking lot!",
@@ -89,7 +92,7 @@ public class ParkingLot {
         this.numberOfCars--;
     }
 
-    public boolean vehicleAlreadyPresent(Object vehicle) {
+    public boolean vehicleAlreadyPresent(Vehicle vehicle) {
         int isCarPresent = this.FindSlotOfThisVehicle(vehicle);
         if (isCarPresent == -1) {
             return false;
@@ -97,9 +100,9 @@ public class ParkingLot {
         return true;
     }
 
-    public int FindSlotOfThisVehicle(Object vehicle) {
+    public int FindSlotOfThisVehicle(Vehicle vehicle) {
         return IntStream.range(0, this.parkingSlots.size())
-                .filter(i -> this.parkingSlots.get(i)!=null && vehicle.equals(this.parkingSlots.get(i).getVehicle()))
+                .filter(i -> this.parkingSlots.get(i) != null && vehicle.equals(this.parkingSlots.get(i).getVehicle()))
                 .findFirst()
                 .orElse(-1);
     }
@@ -110,7 +113,8 @@ public class ParkingLot {
 
     public List<Integer> getSlotNumberListOfVehiclesByColor(VehicleColor color) {
         List<Integer> slotsList = new ArrayList<>();
-        IntStream.range(0, this.parkingSlots.size()).filter(i ->this.parkingSlots.get(i)!=null && this.parkingSlots.get(i).getVehicleColor().equals(color))
+        IntStream.range(0, this.parkingSlots.size()).filter(i -> this.parkingSlots.get(i) != null &&
+                this.parkingSlots.get(i).getVehicleColor().equals(color))
                 .forEach(i -> slotsList.add(i));
         return slotsList;
     }

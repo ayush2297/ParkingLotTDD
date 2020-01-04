@@ -7,6 +7,7 @@ import parkinglot.parkinglotessentials.ParkingTimeManager;
 import parkinglot.parkinglotessentials.SlotAllotment;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.vehicleessentials.DriverType;
+import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
 import parkinglot.vehicleessentials.VehicleSize;
 
@@ -19,10 +20,10 @@ import static org.mockito.Mockito.*;
 public class ParkingLotTest {
 
     ParkingLot parkingLot;
-    Object vehicle4;
-    Object vehicle1;
-    Object vehicle2;
-    Object vehicle3;
+    Vehicle vehicle4;
+    Vehicle vehicle1;
+    Vehicle vehicle2;
+    Vehicle vehicle3;
 
     private SlotAllotment mockedSlotAllotment;
     private ParkedVehicleDetails vehicleDetails1;
@@ -35,14 +36,14 @@ public class ParkingLotTest {
         this.mockedSlotAllotment = mock(SlotAllotment.class);
         this.parkingLot = new ParkingLot(2);
         parkingLot.setSlotAllotment(this.mockedSlotAllotment);
-        this.vehicle1 = new Object();
-        this.vehicle2 = new Object();
-        this.vehicle3 = new Object();
-        this.vehicle4 = new Object();
-        this.vehicleDetails1 = new ParkedVehicleDetails(vehicle1, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
-        this.vehicleDetails2 = new ParkedVehicleDetails(vehicle2, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.WHITE);
-        this.vehicleDetails3 = new ParkedVehicleDetails(vehicle3, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
-        this.vehicleDetails4 = new ParkedVehicleDetails(vehicle4, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.WHITE);
+        this.vehicle1 = new Vehicle("A1","BMW", VehicleColor.OTHER);
+        this.vehicle2 = new Vehicle("A2","BMW", VehicleColor.WHITE);
+        this.vehicle3 = new Vehicle("A3","BMW", VehicleColor.OTHER);
+        this.vehicle4 = new Vehicle("A4","BMW", VehicleColor.WHITE);
+        this.vehicleDetails1 = new ParkedVehicleDetails(vehicle1, DriverType.NORMAL, VehicleSize.SMALL);
+        this.vehicleDetails2 = new ParkedVehicleDetails(vehicle2, DriverType.NORMAL, VehicleSize.SMALL);
+        this.vehicleDetails3 = new ParkedVehicleDetails(vehicle3, DriverType.NORMAL, VehicleSize.SMALL);
+        this.vehicleDetails4 = new ParkedVehicleDetails(vehicle4, DriverType.NORMAL, VehicleSize.SMALL);
         parkingLot.setParkingTimeManager(new ParkingTimeManager());
     }
 

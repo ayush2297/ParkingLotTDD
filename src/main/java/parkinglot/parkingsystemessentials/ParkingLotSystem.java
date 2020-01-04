@@ -2,6 +2,7 @@ package parkinglot.parkingsystemessentials;
 
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
+import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
 
 import java.util.*;
@@ -27,12 +28,12 @@ public class ParkingLotSystem {
     }
 
 
-    public void unParkVehicle(Object vehicle) throws ParkingLotException {
+    public void unParkVehicle(Vehicle vehicle) throws ParkingLotException {
         ParkingLot parkingLotOfThisVehicle = this.getParkingLotOInWhichThisVehicleIsParked(vehicle);
         parkingLotOfThisVehicle.unParkFromParkingLot(vehicle);
     }
 
-    public ParkingLot getParkingLotOInWhichThisVehicleIsParked(Object vehicle) throws ParkingLotException {
+    public ParkingLot getParkingLotOInWhichThisVehicleIsParked(Vehicle vehicle) throws ParkingLotException {
         return this.lots.stream().filter(parkingLot -> parkingLot.vehicleAlreadyPresent(vehicle)).findFirst()
                 .orElseThrow(() -> {
                     return new ParkingLotException

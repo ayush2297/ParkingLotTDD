@@ -3,6 +3,8 @@ import org.junit.Before;
 import org.junit.Test;
 import parkinglot.parkinglotessentials.ParkingLotException;
 import parkinglot.parkinglotessentials.SlotAllotment;
+import parkinglot.vehicleessentials.Vehicle;
+import parkinglot.vehicleessentials.VehicleColor;
 
 public class SlotAllotmentTest {
 
@@ -18,7 +20,7 @@ public class SlotAllotmentTest {
     @Test
     public void givenNoVehiclesParked_ShouldReturnUnoccupiedListSizeAs0() {
         int slotsAvailable = this.slotAllotment.getAvailableSlotsList().size();
-        Assert.assertEquals(2,slotsAvailable);
+        Assert.assertEquals(2, slotsAvailable);
     }
 
     @Test
@@ -38,7 +40,7 @@ public class SlotAllotmentTest {
     @Test
     public void givenAnEmptyParkingLot_WhenAskedForNearestParkingSlot_ShouldReturnSlot0() {
         try {
-            Assert.assertEquals(1,slotAllotment.getParkingSlot());
+            Assert.assertEquals(1, slotAllotment.getParkingSlot());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -48,12 +50,11 @@ public class SlotAllotmentTest {
     public void givenAFullyOccupiedParkingLot_WhenAskedForNearestParkingSlot_ShouldThrowParkingFullException() {
         try {
             slotAllotment.parkUpdate(1);
-            Object vehicle1 = new Object();
             slotAllotment.parkUpdate(2);
             slotAllotment.getParkingSlot();
         } catch (ParkingLotException e) {
             e.printStackTrace();
-            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL,e.type);
+            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
         }
     }
 }

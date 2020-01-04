@@ -7,12 +7,10 @@ import parkinglot.parkinglotessentials.ParkingTimeManager;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.parkingsystemessentials.ParkingLotSystem;
 import parkinglot.parkingsystemessentials.ParkingStrategy;
+import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import static org.mockito.Mockito.*;
 
 public class ParkingLotsSystemTest {
@@ -20,7 +18,7 @@ public class ParkingLotsSystemTest {
     private ParkingLot lot1;
     private ParkingLot lot2;
     private ParkingLotSystem parkingSystem;
-    Object vehicle1;
+    Vehicle vehicle1;
     private ParkedVehicleDetails vehicleDetails1;
 
     @Before
@@ -28,9 +26,7 @@ public class ParkingLotsSystemTest {
         ParkingTimeManager timeManager = new ParkingTimeManager();
         this.lot1 = mock(ParkingLot.class);
         this.lot2 = mock(ParkingLot.class);
-        this.vehicle1 = new Object();
-        this.vehicle1 = new Object();
-        this.vehicle1 = new Object();
+        this.vehicle1 = new Vehicle("A1", "BMW", VehicleColor.OTHER);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
@@ -164,7 +160,7 @@ public class ParkingLotsSystemTest {
         when(lot1.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE)).thenReturn(lot1OutputList);
         when(lot2.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE)).thenReturn(lot2OutputList);
         ArrayList<List<Integer>> slotNumberListOfVehiclesByColor = parkingSystem.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
-        Assert.assertEquals(lot1OutputList,slotNumberListOfVehiclesByColor.get(0));
-        Assert.assertEquals(lot2OutputList,slotNumberListOfVehiclesByColor.get(1));
+        Assert.assertEquals(lot1OutputList, slotNumberListOfVehiclesByColor.get(0));
+        Assert.assertEquals(lot2OutputList, slotNumberListOfVehiclesByColor.get(1));
     }
 }

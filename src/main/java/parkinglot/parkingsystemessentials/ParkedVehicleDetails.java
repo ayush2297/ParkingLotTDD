@@ -1,6 +1,7 @@
 package parkinglot.parkingsystemessentials;
 
 import parkinglot.vehicleessentials.DriverType;
+import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
 import parkinglot.vehicleessentials.VehicleSize;
 
@@ -8,12 +9,11 @@ import java.util.Objects;
 
 public class ParkedVehicleDetails {
 
-    private Object vehicle;
+    private Vehicle vehicle;
     private VehicleSize vehicleSize;
     private DriverType driverType;
-    private VehicleColor vehicleColor;
 
-    public ParkedVehicleDetails(Object vehicle) {
+    public ParkedVehicleDetails(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -25,18 +25,17 @@ public class ParkedVehicleDetails {
         return driverType;
     }
 
-    public ParkedVehicleDetails(Object vehicle, DriverType driverType, VehicleSize vehicleSize, VehicleColor vehicleColor) {
+    public ParkedVehicleDetails(Vehicle vehicle, DriverType driverType, VehicleSize vehicleSize) {
         this.driverType = driverType;
         this.vehicleSize = vehicleSize;
         this.vehicle = vehicle;
-        this.vehicleColor = vehicleColor;
     }
 
     public VehicleColor getVehicleColor() {
-        return this.vehicleColor;
+        return this.vehicle.getVehicleColor();
     }
 
-    public Object getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 
