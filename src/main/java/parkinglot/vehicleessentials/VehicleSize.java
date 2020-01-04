@@ -1,4 +1,4 @@
-package parkinglot.parkingsystemessentials;
+package parkinglot.vehicleessentials;
 
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;

@@ -1,5 +1,8 @@
 package parkinglot.parkingsystemessentials;
 
+import parkinglot.vehicleessentials.DriverType;
+import parkinglot.vehicleessentials.VehicleSize;
+
 public class ParkedVehicleDetails {
 
     private final VehicleSize vehicleSize;

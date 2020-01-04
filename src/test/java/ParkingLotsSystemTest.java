@@ -4,10 +4,10 @@ import org.junit.Test;
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
 import parkinglot.parkinglotessentials.ParkingTimeManager;
-import parkinglot.parkingsystemessentials.DriverType;
+import parkinglot.vehicleessentials.DriverType;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.parkingsystemessentials.ParkingLotSystem;
-import parkinglot.parkingsystemessentials.VehicleSize;
+import parkinglot.vehicleessentials.VehicleSize;
 
 import static org.mockito.Mockito.*;
 

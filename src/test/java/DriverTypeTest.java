@@ -3,7 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
-import parkinglot.parkingsystemessentials.DriverType;
+import parkinglot.vehicleessentials.DriverType;
 
 import java.util.ArrayList;
 
