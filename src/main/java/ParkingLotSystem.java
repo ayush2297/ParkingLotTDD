@@ -15,13 +15,11 @@ public class ParkingLotSystem {
         return this.lots.size();
     }
 
-    public void parkVehicle(Object vehicle) throws ParkingLotException {
-        parkVehicle(vehicle,DriverType.NORMAL);
-    }
-    public void parkVehicle(Object vehicle,DriverType type) throws ParkingLotException {
-        ParkingLot parkingLot = type.getLot(getLotsList());
+    public void parkVehicle(Object vehicle, ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
+        ParkingLot parkingLot = vehicleDetails.getVehicleSize().getLot(getLotsList(), vehicleDetails.getDriverType());
         parkingLot.parkVehicleInThisLot(vehicle);
     }
+
 
     public void unParkVehicle(Object vehicle) throws ParkingLotException {
         ParkingLot parkingLotOfThisVehicle = this.getParkingLotOInWhichThisVehicleIsParked(vehicle);

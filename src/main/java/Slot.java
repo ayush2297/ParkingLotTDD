@@ -4,6 +4,7 @@ import java.util.Objects;
 public class Slot {
 
     private Object vehicle;
+    private ParkedVehicleDetails vehicleDetails;
     private LocalDateTime parkingStartTime;
 
     public Slot(Object vehicle) {

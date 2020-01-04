@@ -12,6 +12,10 @@ public class ParkingLotTest {
 
     ParkingLot parkingLot;
     Object vehicle;
+    Object vehicle1;
+    Object vehicle2;
+    Object vehicle3;
+
     private SlotAllotment mockedSlotAllotment;
 
     @Before
@@ -20,6 +24,9 @@ public class ParkingLotTest {
         this.parkingLot = new ParkingLot(2);
         parkingLot.setSlotAllotment(this.mockedSlotAllotment);
         this.vehicle = new Object();
+        this.vehicle1 = new Object();
+        this.vehicle2 = new Object();
+        this.vehicle3 = new Object();
         parkingLot.setParkingTimeManager(new ParkingTimeManager());
     }
 
@@ -67,11 +74,9 @@ public class ParkingLotTest {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
             parkingLot.parkVehicleInThisLot(vehicle);
             verify(mockedSlotAllotment).parkUpdate(1);
-            Object vehicle2 = new Object();
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(2);
             parkingLot.parkVehicleInThisLot(vehicle2);
             verify(mockedSlotAllotment).parkUpdate(2);
-            Object vehicle3 = new Object();
             when(mockedSlotAllotment.getParkingSlot()).thenThrow(new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL));
             parkingLot.parkVehicleInThisLot(vehicle3);
@@ -98,10 +103,8 @@ public class ParkingLotTest {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
             parkingLot.parkVehicleInThisLot(vehicle);
-            Object vehicle2 = new Object();
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(2);
             parkingLot.parkVehicleInThisLot(vehicle2);
-            Object vehicle3 = new Object();
             when(mockedSlotAllotment.getParkingSlot()).thenThrow(new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL));
             parkingLot.parkVehicleInThisLot(vehicle3);
@@ -116,10 +119,8 @@ public class ParkingLotTest {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
             this.parkingLot.parkVehicleInThisLot(vehicle);
-            Object vehicle2 = new Object();
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(2);
             parkingLot.parkVehicleInThisLot(vehicle2);
-            Object vehicle3 = new Object();
             when(mockedSlotAllotment.getParkingSlot()).thenThrow(new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL));
             parkingLot.parkVehicleInThisLot(vehicle3);
@@ -144,7 +145,7 @@ public class ParkingLotTest {
     public void givenARequestFromOwnerToParkAtGivenSlot_SystemShouldAllotParkingSlotAccordingly() {
         try {
             parkingLot.parkVehicleAtSpecifiedSlot(2, vehicle);
-            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle)+1;
+            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle) + 1;
             verify(mockedSlotAllotment).parkUpdate(2);
             Assert.assertEquals(2, vehicleSlot);
         } catch (ParkingLotException e) {
@@ -192,7 +193,7 @@ public class ParkingLotTest {
     @Test
     public void givenAQueryToGetCapacityOfTheLot_ShouldReturnTheCapacityOfTheLot() {
         int parkingCapacity = parkingLot.getParkingCapacity();
-        Assert.assertEquals(2,parkingCapacity);
+        Assert.assertEquals(2, parkingCapacity);
     }
 
     @Test
