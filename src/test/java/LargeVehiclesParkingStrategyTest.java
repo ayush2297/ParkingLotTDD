@@ -57,4 +57,5 @@ public class LargeVehiclesParkingStrategyTest {
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL,e.type);
         }
     }
+
 }
