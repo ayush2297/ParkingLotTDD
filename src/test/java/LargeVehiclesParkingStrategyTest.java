@@ -5,14 +5,15 @@ import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
 import parkinglot.parkingstrategies.EvenDistributionStrategy;
 import parkinglot.parkingstrategies.IParkingStrategy;
+import parkinglot.parkingstrategies.LargeVehiclesParkingStrategy;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class EvenDistributionStrategyTest {
+public class LargeVehiclesParkingStrategyTest {
+
 
     private ParkingLot lot1;
     private ParkingLot lot2;
@@ -26,18 +27,18 @@ public class EvenDistributionStrategyTest {
         this.listOfLots = new ArrayList<>();
         this.listOfLots.add(lot1);
         this.listOfLots.add(lot2);
-        this.strategy = new EvenDistributionStrategy();
+        this.strategy = new LargeVehiclesParkingStrategy();
     }
 
     @Test
     public void givenARequestToGetLot_ShouldReturnLotAccordingToEvenDistributionStrategy() {
         when(lot1.getNumberOfVehiclesParked()).thenReturn(5);
-        when(lot1.getParkingCapacity()).thenReturn(6);
+        when(lot1.getParkingCapacity()).thenReturn(10);
         when(lot2.getNumberOfVehiclesParked()).thenReturn(8);
-        when(lot1.getParkingCapacity()).thenReturn(15);
+        when(lot2.getParkingCapacity()).thenReturn(25);
         try {
             ParkingLot lot = strategy.getLot(listOfLots);
-            Assert.assertEquals(lot1,lot);
+            Assert.assertEquals(lot2,lot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
