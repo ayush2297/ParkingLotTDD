@@ -3,7 +3,6 @@ import org.junit.Before;
 import org.junit.Test;
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
-import parkinglot.parkingstrategies.EvenDistributionStrategy;
 import parkinglot.parkingstrategies.HandicappedDriverParkingStrategy;
 import parkinglot.parkingstrategies.IParkingStrategy;
 

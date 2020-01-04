@@ -3,16 +3,15 @@ import org.junit.Before;
 import org.junit.Test;
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
-import parkinglot.parkingstrategies.EvenDistributionStrategy;
+import parkinglot.parkingstrategies.EvenDistributionParkingStrategy;
 import parkinglot.parkingstrategies.IParkingStrategy;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class EvenDistributionStrategyTest {
+public class EvenDistributionParkingStrategyTest {
 
     private ParkingLot lot1;
     private ParkingLot lot2;
@@ -26,7 +25,7 @@ public class EvenDistributionStrategyTest {
         this.listOfLots = new ArrayList<>();
         this.listOfLots.add(lot1);
         this.listOfLots.add(lot2);
-        this.strategy = new EvenDistributionStrategy();
+        this.strategy = new EvenDistributionParkingStrategy();
     }
 
     @Test

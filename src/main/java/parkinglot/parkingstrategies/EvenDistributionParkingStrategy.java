@@ -2,11 +2,10 @@ package parkinglot.parkingstrategies;
 
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class EvenDistributionStrategy implements IParkingStrategy {
+public class EvenDistributionParkingStrategy implements IParkingStrategy {
     @Override
     public ParkingLot getLot(ArrayList<ParkingLot> lots) throws ParkingLotException {
         return lots.stream()
