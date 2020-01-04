@@ -1,22 +1,23 @@
 package parkinglot.parkinglotessentials;
 
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+import parkinglot.vehicleessentials.VehicleColor;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Slot {
 
-    private Object vehicle;
     private ParkedVehicleDetails vehicleDetails;
     private LocalDateTime parkingStartTime;
 
-    public Slot(Object vehicle) {
-        this.vehicle = vehicle;
+    public Slot(ParkedVehicleDetails vehicleDetails)
+    {
+        this.vehicleDetails = vehicleDetails;
     }
 
-    public Slot(Object vehicle, LocalDateTime parkingStartTime) {
-        this.vehicle = vehicle;
+    public Slot(ParkedVehicleDetails vehicle, LocalDateTime parkingStartTime) {
+        this.vehicleDetails = vehicle;
         this.parkingStartTime = parkingStartTime;
     }
 
@@ -24,12 +25,19 @@ public class Slot {
         return parkingStartTime;
     }
 
+    public VehicleColor getVehicleColor() {
+        return this.vehicleDetails.getVehicleColor();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Slot slot = (Slot) o;
-        return Objects.equals(vehicle, slot.vehicle);
+        return Objects.equals(vehicleDetails, slot.vehicleDetails);
     }
 
+    public Object getVehicle() {
+        return this.vehicleDetails.getVehicle();
+    }
 }

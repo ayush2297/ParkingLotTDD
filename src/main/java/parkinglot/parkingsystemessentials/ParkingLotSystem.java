@@ -2,7 +2,6 @@ package parkinglot.parkingsystemessentials;
 
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
-
 import java.util.*;
 
 public class ParkingLotSystem {
@@ -20,9 +19,9 @@ public class ParkingLotSystem {
         return this.lots.size();
     }
 
-    public void parkVehicle(Object vehicle, ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
+    public void parkVehicle(ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
         ParkingLot parkingLot = vehicleDetails.getVehicleSize().getLot(getLotsList(), vehicleDetails.getDriverType());
-        parkingLot.parkVehicleInThisLot(vehicle);
+        parkingLot.parkVehicleInThisLot(vehicleDetails);
     }
 
 
@@ -35,7 +34,7 @@ public class ParkingLotSystem {
         return this.lots.stream().filter(parkingLot -> parkingLot.vehicleAlreadyPresent(vehicle)).findFirst()
                 .orElseThrow(() -> {
                     return new ParkingLotException
-                            ("vehicle not parked in any lot!", ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
+                            ("vehicleDetails not parked in any lot!", ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED);
                 });
     }
 

@@ -1,5 +1,7 @@
 package parkinglot.parkinglotessentials;
 
+import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+import parkinglot.vehicleessentials.VehicleColor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,9 @@ public class ParkingLot {
                 .forEach(i -> this.parkingSlots.add(i, null));
     }
 
-    public void setParkingTimeManager(ParkingTimeManager parkingTimeManager) { this.parkingTimeManager = parkingTimeManager; }
+    public void setParkingTimeManager(ParkingTimeManager parkingTimeManager) {
+        this.parkingTimeManager = parkingTimeManager;
+    }
 
     public List getAvailableSlots() {
         return this.slotManager.getAvailableSlotsList();
@@ -41,21 +45,21 @@ public class ParkingLot {
     }
 
     public LocalDateTime getVehicleTimingDetails(Object vehicle) {
-        Slot tempSlot = new Slot(vehicle);
+        Slot tempSlot = new Slot(new ParkedVehicleDetails(vehicle));
         return this.parkingSlots.get(this.parkingSlots.indexOf(tempSlot)).getParkingStartTime();
     }
 
-    public void parkVehicleInThisLot(Object vehicle) throws ParkingLotException {
+    public void parkVehicleInThisLot(ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
         int slot = this.getSlotToParkVehicle();
-        this.parkVehicleAtSpecifiedSlot(slot, vehicle);
+        this.parkVehicleAtSpecifiedSlot(slot, vehicleDetails);
     }
 
-    public void parkVehicleAtSpecifiedSlot(int slotNumber, Object vehicle) throws ParkingLotException {
-        if (this.vehicleAlreadyPresent(vehicle)) {
+    public void parkVehicleAtSpecifiedSlot(int slotNumber, ParkedVehicleDetails vehicleDetails) throws ParkingLotException {
+        if (this.vehicleAlreadyPresent(vehicleDetails)) {
             throw new ParkingLotException("No such car present in parking lot!",
                     ParkingLotException.ExceptionType.CAR_ALREADY_PARKED);
         }
-        this.partVehicleAtSlot(slotNumber, vehicle);
+        this.partVehicleAtSlot(slotNumber, vehicleDetails);
     }
 
     private int getSlotToParkVehicle() throws ParkingLotException {
@@ -67,8 +71,8 @@ public class ParkingLot {
         }
     }
 
-    private void partVehicleAtSlot(int slot, Object vehicle) {
-        Slot tempSlot = new Slot(vehicle, this.parkingTimeManager.getCurrentTime());
+    private void partVehicleAtSlot(int slot, ParkedVehicleDetails vehicleDetails) {
+        Slot tempSlot = new Slot(vehicleDetails, this.parkingTimeManager.getCurrentTime());
         this.parkingSlots.set(slot - 1, tempSlot);
         this.slotManager.parkUpdate(slot);
         this.numberOfCars++;
@@ -94,14 +98,20 @@ public class ParkingLot {
     }
 
     public int FindSlotOfThisVehicle(Object vehicle) {
-        Slot tempSlot = new Slot(vehicle);
         return IntStream.range(0, this.parkingSlots.size())
-                .filter(i -> tempSlot.equals(this.parkingSlots.get(i)))
+                .filter(i -> this.parkingSlots.get(i)!=null && vehicle.equals(this.parkingSlots.get(i).getVehicle()))
                 .findFirst()
                 .orElse(-1);
     }
 
     public void setSlotAllotment(SlotAllotment mockedSlotAllotment) {
         this.slotManager = mockedSlotAllotment;
+    }
+
+    public List<Integer> getSlotNumberListOfVehiclesByColor(VehicleColor color) {
+        List<Integer> slotsList = new ArrayList<>();
+        IntStream.range(0, this.parkingSlots.size()).filter(i ->this.parkingSlots.get(i)!=null && this.parkingSlots.get(i).getVehicleColor().equals(color))
+                .forEach(i -> slotsList.add(i));
+        return slotsList;
     }
 }

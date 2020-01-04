@@ -5,6 +5,10 @@ import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
 import parkinglot.parkinglotessentials.ParkingTimeManager;
 import parkinglot.parkinglotessentials.SlotAllotment;
+import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+import parkinglot.vehicleessentials.DriverType;
+import parkinglot.vehicleessentials.VehicleColor;
+import parkinglot.vehicleessentials.VehicleSize;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,22 +19,30 @@ import static org.mockito.Mockito.*;
 public class ParkingLotTest {
 
     ParkingLot parkingLot;
-    Object vehicle;
+    Object vehicle4;
     Object vehicle1;
     Object vehicle2;
     Object vehicle3;
 
     private SlotAllotment mockedSlotAllotment;
+    private ParkedVehicleDetails vehicleDetails1;
+    private ParkedVehicleDetails vehicleDetails2;
+    private ParkedVehicleDetails vehicleDetails3;
+    private ParkedVehicleDetails vehicleDetails4;
 
     @Before
     public void setup() {
         this.mockedSlotAllotment = mock(SlotAllotment.class);
         this.parkingLot = new ParkingLot(2);
         parkingLot.setSlotAllotment(this.mockedSlotAllotment);
-        this.vehicle = new Object();
         this.vehicle1 = new Object();
         this.vehicle2 = new Object();
         this.vehicle3 = new Object();
+        this.vehicle4 = new Object();
+        this.vehicleDetails1 = new ParkedVehicleDetails(vehicle1, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
+        this.vehicleDetails2 = new ParkedVehicleDetails(vehicle2, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
+        this.vehicleDetails3 = new ParkedVehicleDetails(vehicle3, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
+        this.vehicleDetails4 = new ParkedVehicleDetails(vehicle4, DriverType.NORMAL, VehicleSize.SMALL, VehicleColor.OTHER);
         parkingLot.setParkingTimeManager(new ParkingTimeManager());
     }
 
@@ -38,8 +50,8 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenParkedInParkingLot_ShouldReturnTrue() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
-            int isParked = parkingLot.FindSlotOfThisVehicle(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
+            int isParked = parkingLot.FindSlotOfThisVehicle(vehicle1);
             Assert.assertEquals(0, isParked);
             verify(mockedSlotAllotment).parkUpdate(1);
         } catch (ParkingLotException e) {
@@ -51,11 +63,11 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
             verify(mockedSlotAllotment).parkUpdate(1);
-            parkingLot.unParkFromParkingLot(vehicle);
+            parkingLot.unParkFromParkingLot(vehicle1);
             verify(mockedSlotAllotment).unParkUpdate(1);
-            int thisCarPresentInTheParkingLot = parkingLot.FindSlotOfThisVehicle(vehicle);
+            int thisCarPresentInTheParkingLot = parkingLot.FindSlotOfThisVehicle(vehicle1);
             Assert.assertEquals(-1, thisCarPresentInTheParkingLot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -65,7 +77,7 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenTriedToUnParkedEvenWhenItWasNotParked_ShouldReturnFalse() {
         try {
-            parkingLot.unParkFromParkingLot(vehicle);
+            parkingLot.unParkFromParkingLot(vehicle1);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_PARKED, e.type);
@@ -76,14 +88,14 @@ public class ParkingLotTest {
     public void givenAParkingLotWithSize2_WhenCapacityIsFull_ShouldThrowAnException() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
             verify(mockedSlotAllotment).parkUpdate(1);
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(2);
-            parkingLot.parkVehicleInThisLot(vehicle2);
+            parkingLot.parkVehicleInThisLot(vehicleDetails2);
             verify(mockedSlotAllotment).parkUpdate(2);
             when(mockedSlotAllotment.getParkingSlot()).thenThrow(new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL));
-            parkingLot.parkVehicleInThisLot(vehicle3);
+            parkingLot.parkVehicleInThisLot(vehicleDetails3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
@@ -94,8 +106,8 @@ public class ParkingLotTest {
     public void givenAVehicle_IfTriedToRePark_ShouldThrowAnException() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
-            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.CAR_ALREADY_PARKED, e.type);
@@ -106,12 +118,12 @@ public class ParkingLotTest {
     public void whenParkingCapacityIsFull_AndOwnerIsInformedAboutIt_ShouldReturnTrue() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(2);
-            parkingLot.parkVehicleInThisLot(vehicle2);
+            parkingLot.parkVehicleInThisLot(vehicleDetails2);
             when(mockedSlotAllotment.getParkingSlot()).thenThrow(new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL));
-            parkingLot.parkVehicleInThisLot(vehicle3);
+            parkingLot.parkVehicleInThisLot(vehicleDetails3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
@@ -122,12 +134,12 @@ public class ParkingLotTest {
     public void whenParkingCapacityIsFull_AndAllTheObserversAreInformedAboutIt_ShouldReturnTrue() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            this.parkingLot.parkVehicleInThisLot(vehicle);
+            this.parkingLot.parkVehicleInThisLot(vehicleDetails1);
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(2);
-            parkingLot.parkVehicleInThisLot(vehicle2);
+            parkingLot.parkVehicleInThisLot(vehicleDetails2);
             when(mockedSlotAllotment.getParkingSlot()).thenThrow(new ParkingLotException("No parking space available!!",
                     ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL));
-            parkingLot.parkVehicleInThisLot(vehicle3);
+            parkingLot.parkVehicleInThisLot(vehicleDetails3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL, e.type);
@@ -148,8 +160,8 @@ public class ParkingLotTest {
     @Test
     public void givenARequestFromOwnerToParkAtGivenSlot_SystemShouldAllotParkingSlotAccordingly() {
         try {
-            parkingLot.parkVehicleAtSpecifiedSlot(2, vehicle);
-            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle) + 1;
+            parkingLot.parkVehicleAtSpecifiedSlot(2, vehicleDetails1);
+            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle1) + 1;
             verify(mockedSlotAllotment).parkUpdate(2);
             Assert.assertEquals(2, vehicleSlot);
         } catch (ParkingLotException e) {
@@ -162,8 +174,8 @@ public class ParkingLotTest {
     public void givenARequestToFindAVehicleWhichIsParked_ShouldReturnSlotNumber() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
-            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
+            int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle1);
             Assert.assertEquals(0, vehicleSlot);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -172,7 +184,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenARequestToFindAVehicleWhichIsNotParked_ShouldReturnNegative1() {
-        int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle);
+        int vehicleSlot = parkingLot.FindSlotOfThisVehicle(vehicle1);
         Assert.assertEquals(-1, vehicleSlot);
     }
 
@@ -185,10 +197,10 @@ public class ParkingLotTest {
         when(timeManager.getCurrentTime()).thenReturn(currTime);
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
             verify(mockedSlotAllotment).parkUpdate(1);
-            int tempSlot = parkingLot.FindSlotOfThisVehicle(vehicle);
-            Assert.assertEquals(currTime, parkingLot.getVehicleTimingDetails(vehicle));
+            int tempSlot = parkingLot.FindSlotOfThisVehicle(vehicle1);
+            Assert.assertEquals(currTime, parkingLot.getVehicleTimingDetails(vehicle1));
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -204,13 +216,36 @@ public class ParkingLotTest {
     public void givenAQueryToGetCountOfCarsParkedInTheLot_ShouldReturnTheCarsCountFromTheLot() {
         try {
             when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
-            parkingLot.parkVehicleInThisLot(vehicle);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
             verify(mockedSlotAllotment).parkUpdate(1);
             int numberOfVehiclesParked = parkingLot.getNumberOfVehiclesParked();
             Assert.assertEquals(1, numberOfVehiclesParked);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitVehicleWithSlotNumber() {
+        List<Integer> slotNumberListOfVehiclesByColor = parkingLot.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
+    }
+
+    @Test
+    public void givenAVehicle_IfPresentInTheParkingLot_ShouldReturnTrue() {
+        try {
+            when(mockedSlotAllotment.getParkingSlot()).thenReturn(1);
+            parkingLot.parkVehicleInThisLot(vehicleDetails1);
+            boolean vehiclePresent = parkingLot.vehicleAlreadyPresent(vehicle1);
+            Assert.assertTrue(vehiclePresent);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAVehicle_IfNotPresentInTheParkingLot_ShouldReturnFalse() {
+        boolean vehiclePresent = parkingLot.vehicleAlreadyPresent(vehicle1);
+        Assert.assertFalse(vehiclePresent);
     }
 }
 

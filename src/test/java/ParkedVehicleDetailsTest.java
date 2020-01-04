@@ -3,14 +3,17 @@ import org.junit.Before;
 import org.junit.Test;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.vehicleessentials.DriverType;
+import parkinglot.vehicleessentials.VehicleColor;
 import parkinglot.vehicleessentials.VehicleSize;
 
 public class ParkedVehicleDetailsTest {
     private ParkedVehicleDetails details;
+    private Object vehicle;
 
     @Before
     public void setUp() throws Exception {
-        this.details = new ParkedVehicleDetails(DriverType.NORMAL, VehicleSize.SMALL);
+        this.vehicle = new Object();
+        this.details = new ParkedVehicleDetails(vehicle,DriverType.NORMAL, VehicleSize.SMALL,VehicleColor.WHITE);
     }
 
     @Test
@@ -20,8 +23,15 @@ public class ParkedVehicleDetailsTest {
     }
 
     @Test
-    public void givenARequestToGetVehicleSize_ShouldReturnDriverType() {
+    public void givenARequestToGetVehicleSize_ShouldReturnVehicleSize() {
         VehicleSize vehicleSize = details.getVehicleSize();
         Assert.assertEquals(VehicleSize.SMALL,vehicleSize);
     }
+
+    @Test
+    public void givenARequestToGetVehicleColour_ShouldReturnVehicleColor() {
+        VehicleColor vehicleColor = details.getVehicleColor();
+        Assert.assertEquals(VehicleColor.WHITE,vehicleColor);
+    }
+
 }
