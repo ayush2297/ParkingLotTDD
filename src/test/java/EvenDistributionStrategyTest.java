@@ -40,4 +40,18 @@ public class EvenDistributionStrategyTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenARequestToGetLot_WhenAllParkingLotsAreFull_ShouldThrowParkingLotException() {
+        when(lot1.getNumberOfVehiclesParked()).thenReturn(5);
+        when(lot1.getParkingCapacity()).thenReturn(5);
+        when(lot2.getNumberOfVehiclesParked()).thenReturn(3);
+        when(lot2.getParkingCapacity()).thenReturn(3);
+        try {
+            ParkingLot lot = strategy.getLot(listOfLots);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_CAPACITY_FULL,e.type);
+        }
+    }
 }
