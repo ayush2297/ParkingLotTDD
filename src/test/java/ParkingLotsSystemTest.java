@@ -7,6 +7,11 @@ import parkinglot.parkinglotessentials.ParkingTimeManager;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.parkingsystemessentials.ParkingLotSystem;
 import parkinglot.parkingsystemessentials.ParkingStrategy;
+import parkinglot.vehicleessentials.VehicleColor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
@@ -67,7 +72,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.NORMAL);
+            parkingSystem.parkVehicle(vehicleDetails1, ParkingStrategy.NORMAL);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             ParkingLot lot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -84,7 +89,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.NORMAL);
+            parkingSystem.parkVehicle(vehicleDetails1, ParkingStrategy.NORMAL);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -120,7 +125,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getNumberOfVehiclesParked()).thenReturn(0);
             when(lot1.getParkingCapacity()).thenReturn(2);
             when(lot2.getParkingCapacity()).thenReturn(2);
-            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.HANDICAP);
+            parkingSystem.parkVehicle(vehicleDetails1, ParkingStrategy.HANDICAP);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             ParkingLot presentLot = parkingSystem.getParkingLotOInWhichThisVehicleIsParked(vehicle1);
@@ -137,7 +142,7 @@ public class ParkingLotsSystemTest {
             when(lot2.getParkingCapacity()).thenReturn(10);
             when(lot1.getNumberOfVehiclesParked()).thenReturn(4);
             when(lot2.getNumberOfVehiclesParked()).thenReturn(2);
-            parkingSystem.parkVehicle(vehicleDetails1,ParkingStrategy.LARGE_VEHICLE);
+            parkingSystem.parkVehicle(vehicleDetails1, ParkingStrategy.LARGE_VEHICLE);
             verify(lot2).parkVehicleInThisLot(vehicleDetails1);
             when(lot1.vehicleAlreadyPresent(vehicle1)).thenReturn(false);
             when(lot2.vehicleAlreadyPresent(vehicle1)).thenReturn(true);
@@ -146,5 +151,20 @@ public class ParkingLotsSystemTest {
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void givenAQueryToGetSlotsOfAllWhiteVehiclesInAllLots_ShouldReturnLotWiseListOfWhitVehicleWithSlotNumber() {
+        List<Integer> lot1OutputList = new ArrayList<>();
+        lot1OutputList.add(2);
+        lot1OutputList.add(3);
+        lot1OutputList.add(7);
+        List<Integer> lot2OutputList = new ArrayList<>();
+        lot2OutputList.add(1);
+        when(lot1.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE)).thenReturn(lot1OutputList);
+        when(lot2.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE)).thenReturn(lot2OutputList);
+        ArrayList<List<Integer>> slotNumberListOfVehiclesByColor = parkingSystem.getSlotNumberListOfVehiclesByColor(VehicleColor.WHITE);
+        Assert.assertEquals(lot1OutputList,slotNumberListOfVehiclesByColor.get(0));
+        Assert.assertEquals(lot2OutputList,slotNumberListOfVehiclesByColor.get(1));
     }
 }
