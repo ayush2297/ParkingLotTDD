@@ -118,4 +118,14 @@ public class ParkingLot {
                 .forEach(i -> slotsList.add(i));
         return slotsList;
     }
+
+    public List<Integer> getSlotNumberListOfVehiclesByMakeAndColor(String make, VehicleColor color) {
+        List<Integer> slotsList = new ArrayList<>();
+        IntStream.range(0, this.parkingSlots.size())
+                .filter(i ->
+                this.parkingSlots.get(i).getVehicleMake().equals(make) &&
+                this.parkingSlots.get(i).getVehicleColor().equals(color))
+                .forEach(i -> slotsList.add(i));
+        return slotsList;
+    }
 }

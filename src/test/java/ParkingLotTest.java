@@ -245,7 +245,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitVehicleWithSlotNumber() {
+    public void givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitetVehicleSlotNumber() {
         try {
             parkingLot.setSlotAllotment(new SlotAllotment(2));
             parkingLot.parkVehicleInThisLot(vehicleDetails2);
@@ -255,6 +255,20 @@ public class ParkingLotTest {
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void givenARequestToGetSlotsOfAllBlueToyotas_ShouldReturnListOfSimilarVehiclesSlotNumber() {
+        try {
+            parkingLot.setSlotAllotment(new SlotAllotment(2));
+            parkingLot.parkVehicleInThisLot(vehicleDetails2);
+            parkingLot.parkVehicleInThisLot(vehicleDetails4);
+            List<Integer> slotNumberListOfVehiclesBy = parkingLot.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE);
+            Assert.assertEquals(2, slotNumberListOfVehiclesBy.size());
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

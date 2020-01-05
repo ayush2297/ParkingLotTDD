@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class ParkedVehicleDetails {
 
+    private String attendantName;
     private Vehicle vehicle;
     private VehicleSize vehicleSize;
     private DriverType driverType;

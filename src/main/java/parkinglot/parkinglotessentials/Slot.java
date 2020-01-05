@@ -1,6 +1,7 @@
 package parkinglot.parkinglotessentials;
 
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
+import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
 
 import java.time.LocalDateTime;
@@ -11,8 +12,7 @@ public class Slot {
     private ParkedVehicleDetails vehicleDetails;
     private LocalDateTime parkingStartTime;
 
-    public Slot(ParkedVehicleDetails vehicleDetails)
-    {
+    public Slot(ParkedVehicleDetails vehicleDetails) {
         this.vehicleDetails = vehicleDetails;
     }
 
@@ -29,15 +29,17 @@ public class Slot {
         return this.vehicleDetails.getVehicleColor();
     }
 
+    public Vehicle getVehicle() { return this.vehicleDetails.getVehicle(); }
+
+    public String getVehicleMake() {
+        return this.vehicleDetails.getVehicle().getMake();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Slot slot = (Slot) o;
         return Objects.equals(vehicleDetails, slot.vehicleDetails);
-    }
-
-    public Object getVehicle() {
-        return this.vehicleDetails.getVehicle();
     }
 }

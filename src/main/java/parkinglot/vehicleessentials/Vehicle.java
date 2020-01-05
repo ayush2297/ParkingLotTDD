@@ -14,6 +14,10 @@ public class Vehicle {
         this.vehicleColor = vehicleColor;
     }
 
+    public String getMake() {
+        return make;
+    }
+
     public VehicleColor getVehicleColor() {
         return vehicleColor;
     }
