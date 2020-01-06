@@ -1,13 +1,14 @@
 package parkinglot.parkinglotessentials;
 
-import com.sun.imageio.plugins.wbmp.WBMPImageWriter;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
+import parkinglot.vehicleessentials.VehicleMake;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public class ParkingLot {
@@ -75,7 +76,7 @@ public class ParkingLot {
     }
 
     private void partVehicleAtSlot(int slot, ParkedVehicleDetails vehicleDetails) {
-        Slot tempSlot = new Slot(vehicleDetails, this.parkingTimeManager.getCurrentTime());
+        Slot tempSlot = new Slot(slot,vehicleDetails, this.parkingTimeManager.getCurrentTime());
         this.parkingSlots.set(slot - 1, tempSlot);
         this.slotManager.parkUpdate(slot);
         this.numberOfCars++;
@@ -113,19 +114,28 @@ public class ParkingLot {
 
     public List<Integer> getSlotNumberListOfVehiclesByColor(VehicleColor color) {
         List<Integer> slotsList = new ArrayList<>();
-        IntStream.range(0, this.parkingSlots.size()).filter(i -> this.parkingSlots.get(i) != null &&
-                this.parkingSlots.get(i).getVehicleColor().equals(color))
-                .forEach(i -> slotsList.add(i));
+        getSlotNumberListOfVehiclesBy(color).stream()
+                .forEach(slot -> slotsList.add(slot.getSlotNumber()));
         return slotsList;
     }
 
-    public List<Integer> getSlotNumberListOfVehiclesByMakeAndColor(String make, VehicleColor color) {
-        List<Integer> slotsList = new ArrayList<>();
-        IntStream.range(0, this.parkingSlots.size())
-                .filter(i ->
-                this.parkingSlots.get(i).getVehicleMake().equals(make) &&
-                this.parkingSlots.get(i).getVehicleColor().equals(color))
-                .forEach(i -> slotsList.add(i));
+    public List<ParkingDetailsDTO> getSlotNumberListOfVehiclesByMakeAndColor(VehicleMake make, VehicleColor color) {
+        List<ParkingDetailsDTO> slotsList = new ArrayList<>();
+        getSlotNumberListOfVehiclesBy(make,color).stream()
+                .forEach(slot -> slotsList.add(new ParkingDetailsDTO(slot)));
+        return slotsList;
+    }
+
+    public List<Slot> getSlotNumberListOfVehiclesBy(ISearchableAttributes... attributes) {
+        Predicate<Slot> myPredicate = attributes[0].getFilter();
+        if (attributes.length>1) {
+            for(int i=1;i<attributes.length;i++)
+            myPredicate = myPredicate.and(attributes[i].getFilter());
+        }
+        List<Slot> slotsList = new ArrayList<>();
+        this.parkingSlots.stream()
+                .filter(myPredicate)
+                .forEach(slot -> slotsList.add(slot));
         return slotsList;
     }
 }

@@ -5,9 +5,7 @@ import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
 import parkinglot.parkingstrategies.EvenDistributionParkingStrategy;
 import parkinglot.parkingstrategies.IParkingStrategy;
-
 import java.util.ArrayList;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

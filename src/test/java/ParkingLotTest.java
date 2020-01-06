@@ -1,15 +1,9 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import parkinglot.parkinglotessentials.ParkingLot;
-import parkinglot.parkinglotessentials.ParkingLotException;
-import parkinglot.parkinglotessentials.ParkingTimeManager;
-import parkinglot.parkinglotessentials.SlotAllotment;
+import parkinglot.parkinglotessentials.*;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
-import parkinglot.vehicleessentials.DriverType;
-import parkinglot.vehicleessentials.Vehicle;
-import parkinglot.vehicleessentials.VehicleColor;
-import parkinglot.vehicleessentials.VehicleSize;
+import parkinglot.vehicleessentials.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,10 +30,10 @@ public class ParkingLotTest {
         this.mockedSlotAllotment = mock(SlotAllotment.class);
         this.parkingLot = new ParkingLot(2);
         parkingLot.setSlotAllotment(this.mockedSlotAllotment);
-        this.vehicle1 = new Vehicle("A1","BMW", VehicleColor.OTHER);
-        this.vehicle2 = new Vehicle("A2","BMW", VehicleColor.WHITE);
-        this.vehicle3 = new Vehicle("A3","BMW", VehicleColor.OTHER);
-        this.vehicle4 = new Vehicle("A4","BMW", VehicleColor.WHITE);
+        this.vehicle1 = new Vehicle("A1",VehicleMake.BMW, VehicleColor.OTHER);
+        this.vehicle2 = new Vehicle("A2",VehicleMake.BMW, VehicleColor.WHITE);
+        this.vehicle3 = new Vehicle("A3",VehicleMake.BMW, VehicleColor.OTHER);
+        this.vehicle4 = new Vehicle("A4",VehicleMake.BMW, VehicleColor.WHITE);
         this.vehicleDetails1 = new ParkedVehicleDetails(vehicle1, DriverType.NORMAL, VehicleSize.SMALL);
         this.vehicleDetails2 = new ParkedVehicleDetails(vehicle2, DriverType.NORMAL, VehicleSize.SMALL);
         this.vehicleDetails3 = new ParkedVehicleDetails(vehicle3, DriverType.NORMAL, VehicleSize.SMALL);
@@ -263,12 +257,12 @@ public class ParkingLotTest {
             parkingLot.setSlotAllotment(new SlotAllotment(2));
             parkingLot.parkVehicleInThisLot(vehicleDetails2);
             parkingLot.parkVehicleInThisLot(vehicleDetails4);
-            List<Integer> slotNumberListOfVehiclesBy = parkingLot.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE);
+            List<ParkingDetailsDTO> slotNumberListOfVehiclesBy = parkingLot.getSlotNumberListOfVehiclesByMakeAndColor(VehicleMake.BMW,VehicleColor.WHITE);
             Assert.assertEquals(2, slotNumberListOfVehiclesBy.size());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
-
     }
+
 }
 

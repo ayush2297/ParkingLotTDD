@@ -1,9 +1,12 @@
 package parkinglot.parkingsystemessentials;
 
+import parkinglot.parkinglotessentials.ParkingDetailsDTO;
 import parkinglot.parkinglotessentials.ParkingLot;
 import parkinglot.parkinglotessentials.ParkingLotException;
+import parkinglot.parkinglotessentials.Slot;
 import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
+import parkinglot.vehicleessentials.VehicleMake;
 
 import java.util.*;
 
@@ -51,8 +54,8 @@ public class ParkingLotSystem {
         return listOfSlots;
     }
 
-    public ArrayList<List<Integer>> getSlotNumberListOfVehiclesByMakeAndColor(String vehicleMake, VehicleColor vehicleColor) {
-        ArrayList<List<Integer>> listOfSlots = new ArrayList<>();
+    public ArrayList<List<ParkingDetailsDTO>> getSlotNumberListOfVehiclesByMakeAndColor(VehicleMake vehicleMake, VehicleColor vehicleColor) {
+        ArrayList<List<ParkingDetailsDTO>> listOfSlots = new ArrayList<>();
         this.lots.stream().forEach(parkingLot -> listOfSlots.add(parkingLot.getSlotNumberListOfVehiclesByMakeAndColor(vehicleMake,vehicleColor)));
         return listOfSlots;
     }

@@ -1,14 +1,14 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import parkinglot.parkinglotessentials.ParkingLot;
-import parkinglot.parkinglotessentials.ParkingLotException;
-import parkinglot.parkinglotessentials.ParkingTimeManager;
+import parkinglot.parkinglotessentials.*;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
 import parkinglot.parkingsystemessentials.ParkingLotSystem;
 import parkinglot.parkingsystemessentials.ParkingStrategy;
 import parkinglot.vehicleessentials.Vehicle;
 import parkinglot.vehicleessentials.VehicleColor;
+import parkinglot.vehicleessentials.VehicleMake;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
@@ -26,7 +26,7 @@ public class ParkingLotsSystemTest {
         ParkingTimeManager timeManager = new ParkingTimeManager();
         this.lot1 = mock(ParkingLot.class);
         this.lot2 = mock(ParkingLot.class);
-        this.vehicle1 = new Vehicle("A1", "BMW", VehicleColor.OTHER);
+        this.vehicle1 = new Vehicle("A1", VehicleMake.BMW, VehicleColor.OTHER);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
         this.vehicleDetails1 = mock(ParkedVehicleDetails.class);
@@ -166,15 +166,15 @@ public class ParkingLotsSystemTest {
 
     @Test
     public void givenAQueryToGetSlotsOfAllWhiteBMWVehiclesInAllLots_ShouldReturnLotWiseListOfWhitBMWVehicleWithSlotNumber() {
-        List<Integer> lot1OutputList = new ArrayList<>();
-        lot1OutputList.add(2);
-        lot1OutputList.add(3);
-        lot1OutputList.add(7);
-        List<Integer> lot2OutputList = new ArrayList<>();
-        lot2OutputList.add(1);
-        when(lot1.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE)).thenReturn(lot1OutputList);
-        when(lot2.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE)).thenReturn(lot2OutputList);
-        ArrayList<List<Integer>> slotNumberListOfVehiclesByMakeAndColor = parkingSystem.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE);
+        List<ParkingDetailsDTO> lot1OutputList = new ArrayList<>();
+        lot1OutputList.add(new ParkingDetailsDTO(1,"A1","Ramu"));
+        lot1OutputList.add(new ParkingDetailsDTO(4,"A2","shamu"));
+        lot1OutputList.add(new ParkingDetailsDTO(5,"A3","Ramu"));
+        List<ParkingDetailsDTO> lot2OutputList = new ArrayList<>();
+        lot2OutputList.add(new ParkingDetailsDTO(3,"b3","kaka"));
+        when(lot1.getSlotNumberListOfVehiclesByMakeAndColor(VehicleMake.BMW,VehicleColor.WHITE)).thenReturn(lot1OutputList);
+        when(lot2.getSlotNumberListOfVehiclesByMakeAndColor(VehicleMake.BMW,VehicleColor.WHITE)).thenReturn(lot2OutputList);
+        ArrayList<List<ParkingDetailsDTO>> slotNumberListOfVehiclesByMakeAndColor = parkingSystem.getSlotNumberListOfVehiclesByMakeAndColor(VehicleMake.BMW,VehicleColor.WHITE);
         Assert.assertEquals(lot1OutputList, slotNumberListOfVehiclesByMakeAndColor.get(0));
         Assert.assertEquals(lot2OutputList, slotNumberListOfVehiclesByMakeAndColor.get(1));
     }

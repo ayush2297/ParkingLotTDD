@@ -2,10 +2,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import parkinglot.parkingsystemessentials.ParkedVehicleDetails;
-import parkinglot.vehicleessentials.DriverType;
-import parkinglot.vehicleessentials.Vehicle;
-import parkinglot.vehicleessentials.VehicleColor;
-import parkinglot.vehicleessentials.VehicleSize;
+import parkinglot.vehicleessentials.*;
 
 public class ParkedVehicleDetailsTest {
     private ParkedVehicleDetails details;
@@ -13,7 +10,7 @@ public class ParkedVehicleDetailsTest {
 
     @Before
     public void setUp() throws Exception {
-        this.vehicle = new Vehicle("A1", "BMW", VehicleColor.WHITE);
+        this.vehicle = new Vehicle("A1", VehicleMake.BMW, VehicleColor.WHITE);
         this.details = new ParkedVehicleDetails(vehicle, DriverType.NORMAL, VehicleSize.SMALL);
     }
 

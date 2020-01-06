@@ -5,21 +5,25 @@ import java.util.Objects;
 public class Vehicle {
 
     private final String plateNum;
-    private final String make;
+    private final VehicleMake make;
     private final VehicleColor vehicleColor;
 
-    public Vehicle(String plateNum, String make, VehicleColor vehicleColor) {
+    public Vehicle(String plateNum, VehicleMake make, VehicleColor vehicleColor) {
         this.plateNum = plateNum;
         this.make = make;
         this.vehicleColor = vehicleColor;
     }
 
-    public String getMake() {
+    public VehicleMake getMake() {
         return make;
     }
 
-    public VehicleColor getVehicleColor() {
+    public VehicleColor getColor() {
         return vehicleColor;
+    }
+
+    public String getNumberPlate() {
+        return this.plateNum;
     }
 
     @Override
@@ -31,5 +35,4 @@ public class Vehicle {
                 Objects.equals(make, vehicle.make) &&
                 vehicleColor == vehicle.vehicleColor;
     }
-
 }

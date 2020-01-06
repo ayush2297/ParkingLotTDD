@@ -33,11 +33,15 @@ public class ParkedVehicleDetails {
     }
 
     public VehicleColor getVehicleColor() {
-        return this.vehicle.getVehicleColor();
+        return this.vehicle.getColor();
     }
 
     public Vehicle getVehicle() {
         return vehicle;
+    }
+
+    public String getAttendantName() {
+        return this.attendantName;
     }
 
     @Override

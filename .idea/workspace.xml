@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a1a92441-6960-48ab-88c1-14b45f28c016" name="Default Changelist" comment="" />
+    <list default="true" id="a1a92441-6960-48ab-88c1-14b45f28c016" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/parkinglotessentials/ParkingLot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/parkinglotessentials/ParkingLot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/parkinglotessentials/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/parkinglotessentials/Slot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/parkingsystemessentials/ParkedVehicleDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/parkingsystemessentials/ParkedVehicleDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/parkingsystemessentials/ParkingLotSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/parkingsystemessentials/ParkingLotSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/vehicleessentials/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/vehicleessentials/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/vehicleessentials/VehicleColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/vehicleessentials/VehicleColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parkinglot/vehicleessentials/VehicleMake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parkinglot/vehicleessentials/VehicleMake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/EvenDistributionParkingStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/EvenDistributionParkingStrategyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LargeVehiclesParkingStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/LargeVehiclesParkingStrategyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ParkedVehicleDetailsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParkedVehicleDetailsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ParkingLotTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParkingLotTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ParkingLotsSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParkingLotsSystemTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/VehicleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/VehicleTest.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +30,33 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1VYozgBgdMOGzV7AbXX4aDfidzg" />
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="parkinglot.parkinglotessentials" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -25,6 +68,117 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager" selected="Gradle.ParkingLotTest">
+    <configuration name="ParkingLotTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ParkingLotTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParkingLotTest.givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitetVehicleSlotNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ParkingLotTest.givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitetVehicleSlotNumber&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParkingLotTest.givenARequestToGetSlotsOfAllBlueToyotasByCommonFunction_ShouldReturnListOfSimilarVehiclesSlotNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ParkingLotTest.givenARequestToGetSlotsOfAllBlueToyotasByCommonFunction_ShouldReturnListOfSimilarVehiclesSlotNumber&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParkingLotTest.givenARequestToGetSlotsOfAllBlueToyotas_ShouldReturnListOfSimilarVehiclesSlotNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ParkingLotTest.givenARequestToGetSlotsOfAllBlueToyotas_ShouldReturnListOfSimilarVehiclesSlotNumber&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParkingLotsSystemTest.givenAQueryToGetSlotsOfAllWhiteBMWVehiclesInAllLots_ShouldReturnLotWiseListOfWhitBMWVehicleWithSlotNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ParkingLotsSystemTest.givenAQueryToGetSlotsOfAllWhiteBMWVehiclesInAllLots_ShouldReturnLotWiseListOfWhitBMWVehicleWithSlotNumber&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ParkingLotTest" />
+        <item itemvalue="Gradle.ParkingLotTest.givenARequestToGetSlotsOfAllBlueToyotas_ShouldReturnListOfSimilarVehiclesSlotNumber" />
+        <item itemvalue="Gradle.ParkingLotTest.givenAQueryToGetSlotsOfAllWhiteVehicles_ShouldReturnListOfWhitetVehicleSlotNumber" />
+        <item itemvalue="Gradle.ParkingLotTest.givenARequestToGetSlotsOfAllBlueToyotasByCommonFunction_ShouldReturnListOfSimilarVehiclesSlotNumber" />
+        <item itemvalue="Gradle.ParkingLotsSystemTest.givenAQueryToGetSlotsOfAllWhiteBMWVehiclesInAllLots_ShouldReturnLotWiseListOfWhitBMWVehicleWithSlotNumber" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -38,5 +192,19 @@
       <updated>1577439652366</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ParkingLot$Tests_in__ParkingLot_test_.ic" NAME="Tests in 'ParkingLot.test' Coverage Results" MODIFIED="1578286801106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

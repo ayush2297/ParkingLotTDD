@@ -11,12 +11,14 @@ public class Slot {
 
     private ParkedVehicleDetails vehicleDetails;
     private LocalDateTime parkingStartTime;
+    private int slotNumber;
 
     public Slot(ParkedVehicleDetails vehicleDetails) {
         this.vehicleDetails = vehicleDetails;
     }
 
-    public Slot(ParkedVehicleDetails vehicle, LocalDateTime parkingStartTime) {
+    public Slot(int slot, ParkedVehicleDetails vehicle, LocalDateTime parkingStartTime) {
+        this.slotNumber = slot;
         this.vehicleDetails = vehicle;
         this.parkingStartTime = parkingStartTime;
     }
@@ -31,8 +33,8 @@ public class Slot {
 
     public Vehicle getVehicle() { return this.vehicleDetails.getVehicle(); }
 
-    public String getVehicleMake() {
-        return this.vehicleDetails.getVehicle().getMake();
+    public int getSlotNumber() {
+        return this.slotNumber;
     }
 
     @Override
@@ -41,5 +43,9 @@ public class Slot {
         if (o == null || getClass() != o.getClass()) return false;
         Slot slot = (Slot) o;
         return Objects.equals(vehicleDetails, slot.vehicleDetails);
+    }
+
+    public ParkedVehicleDetails getDetails() {
+        return this.vehicleDetails;
     }
 }
