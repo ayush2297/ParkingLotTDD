@@ -50,4 +50,10 @@ public class ParkingLotSystem {
         this.lots.stream().forEach(parkingLot -> listOfSlots.add(parkingLot.getSlotNumberListOfVehiclesByColor(vehicleColor)));
         return listOfSlots;
     }
+
+    public ArrayList<List<Integer>> getSlotNumberListOfVehiclesByMakeAndColor(String vehicleMake, VehicleColor vehicleColor) {
+        ArrayList<List<Integer>> listOfSlots = new ArrayList<>();
+        this.lots.stream().forEach(parkingLot -> listOfSlots.add(parkingLot.getSlotNumberListOfVehiclesByMakeAndColor(vehicleMake,vehicleColor)));
+        return listOfSlots;
+    }
 }

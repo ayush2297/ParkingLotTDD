@@ -163,4 +163,19 @@ public class ParkingLotsSystemTest {
         Assert.assertEquals(lot1OutputList, slotNumberListOfVehiclesByColor.get(0));
         Assert.assertEquals(lot2OutputList, slotNumberListOfVehiclesByColor.get(1));
     }
+
+    @Test
+    public void givenAQueryToGetSlotsOfAllWhiteBMWVehiclesInAllLots_ShouldReturnLotWiseListOfWhitBMWVehicleWithSlotNumber() {
+        List<Integer> lot1OutputList = new ArrayList<>();
+        lot1OutputList.add(2);
+        lot1OutputList.add(3);
+        lot1OutputList.add(7);
+        List<Integer> lot2OutputList = new ArrayList<>();
+        lot2OutputList.add(1);
+        when(lot1.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE)).thenReturn(lot1OutputList);
+        when(lot2.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE)).thenReturn(lot2OutputList);
+        ArrayList<List<Integer>> slotNumberListOfVehiclesByMakeAndColor = parkingSystem.getSlotNumberListOfVehiclesByMakeAndColor("BMW",VehicleColor.WHITE);
+        Assert.assertEquals(lot1OutputList, slotNumberListOfVehiclesByMakeAndColor.get(0));
+        Assert.assertEquals(lot2OutputList, slotNumberListOfVehiclesByMakeAndColor.get(1));
+    }
 }
